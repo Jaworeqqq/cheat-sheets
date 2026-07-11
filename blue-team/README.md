@@ -22,4 +22,5 @@ Detection, response and defense. Mapped by default to [MITRE ATT&CK](https://att
 - [x] `digital-forensics/dfir-triage.md`, `malware-analysis/static-dynamic-analysis.md`, `hardening/cis-linux.md`
 - [x] `hardening/cis-windows.md`, `logging-monitoring/sysmon-config.md`
 - [x] `incident-response/` – ir-playbook-phishing, ir-playbook-bec
-- [ ] Todo: `detection-engineering/detection-as-code`, `threat-hunting/lateral-movement-hunt`, `siem/elastic-eql`
+- [x] `detection-engineering/detection-as-code.md`, `threat-hunting/lateral-movement-hunt.md`, `siem/elastic-eql.md`
+- [ ] Todo: `malware-analysis/memory-forensics`, `hardening/macos`, `digital-forensics/linux-forensics`
