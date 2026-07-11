@@ -27,4 +27,5 @@ Offensive techniques organized by the [Cyber Kill Chain](https://www.lockheedmar
 - [x] `web/` – sqli, xss, ssrf, file-upload
 - [x] `command-and-control/c2-matrix.md`, `exfiltration/exfil-channels.md`
 - [x] `recon/nmap-nse.md`, `wireless/bluetooth-ble.md`, `mobile/ios-basics.md`, `tools/` (impacket, mimikatz)
-- [ ] Todo: `active-directory/dcsync`, `active-directory/delegation`, `web/ssti`, `recon/smb-enum`
+- [x] `active-directory/dcsync.md`, `active-directory/delegation.md`, `web/ssti.md`, `recon/smb-enum.md`
+- [ ] Todo: `web/xxe`, `web/command-injection`, `initial-access/exposed-services`, `persistence/golden-ticket` (deep-dive)
