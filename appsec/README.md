@@ -10,8 +10,8 @@ Application security from design to testing.
 | [threat-modeling](./threat-modeling/) | STRIDE, DREAD, attack trees, data flow diagrams |
 
 ## Priority backlog
-- [x] `owasp-top10/owasp-top10-2021.md`, `owasp-top10/a01-broken-access-control.md`
-- [x] `api-security/jwt-attacks.md`
+- [x] `owasp-top10/` – overview + **A01–A10 all as separate files**
+- [x] `api-security/` – jwt-attacks, oauth-oidc
 - [x] `threat-modeling/stride.md`
-- [x] `secure-coding/input-validation.md`
-- [ ] Todo: remaining A02–A10 as separate files, `api-security/oauth-oidc`, `secure-coding/deserialization`
+- [x] `secure-coding/` – input-validation, deserialization
+- [ ] Todo: `owasp-top10/api-top10` (API-specific), `threat-modeling/attack-trees`, `secure-coding/ssrf-prevention`
