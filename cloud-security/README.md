@@ -13,4 +13,5 @@ Public cloud security — enumeration, misconfigurations, IAM, detection.
 - [x] `aws/iam-privesc.md`, `aws/s3-misconfig.md`
 - [x] `azure/entra-enumeration.md`
 - [x] `gcp/gcp-iam-basics.md`
-- [ ] Todo: `aws/cloudtrail-detection`, `azure/managed-identity-abuse`, `multi-cloud/cspm`
+- [x] `aws/cloudtrail-detection.md`, `azure/managed-identity-abuse.md`, `multi-cloud/cspm.md`
+- [ ] Todo: `aws/lambda-privesc`, `gcp/gcs-misconfig`, `azure/storage-sas-abuse`
