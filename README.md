@@ -25,7 +25,7 @@ Uporządkowana, praktyczna kolekcja ściągawek z zakresu cyberbezpieczeństwa �
 
 ## 📈 Stan wypełnienia
 
-Repo ma wypełnione ściągawki-fundamenty w każdym dziale (~45 dokumentów) plus szkielet pod resztę. Każdy `README.md` działu ma listę „priorytet do uzupełnienia" (odhaczone = gotowe).
+Repo ma wypełnione ściągawki-fundamenty w każdym dziale (ponad 70 dokumentów) plus szkielet pod resztę. Każdy `README.md` działu ma listę „priorytet do uzupełnienia" (odhaczone = gotowe).
 
 | Dział | Gotowe ściągawki (przykłady) |
 |-------|------------------------------|
