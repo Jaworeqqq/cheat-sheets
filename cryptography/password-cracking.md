@@ -1,5 +1,5 @@
 ---
-title: "Łamanie haseł (hashcat / john)"
+title: "Password cracking (hashcat / john)"
 category: "cryptography"
 tags: ["cryptography", "password-cracking", "hashcat"]
 platform: "agnostic"
@@ -9,19 +9,19 @@ updated: "2026-07-11"
 author: "core"
 ---
 
-# Łamanie haseł
+# Password cracking
 
 ## TL;DR
-Offline cracking hashy zdobytych legalnie w zaangażowaniu. Zidentyfikuj typ → wybierz atak (słownik + reguły → maska → brute) → hashcat (GPU) lub john.
+Offline cracking of hashes obtained legally during an engagement. Identify the type → pick an attack (dictionary + rules → mask → brute) → hashcat (GPU) or john.
 
-## Identyfikacja hasha
+## Hash identification
 ```bash
 hashid '$2y$10$...'          # bcrypt
 nth --text '<hash>'          # name-that-hash
 # hashcat --identify hash.txt
 ```
 
-## Częste tryby hashcat (-m)
+## Common hashcat modes (-m)
 ```text
 0     MD5              100   SHA1           1400  SHA256
 1000  NTLM             3200  bcrypt         1800  sha512crypt
@@ -29,12 +29,12 @@ nth --text '<hash>'          # name-that-hash
 16500 JWT (HS256)      22000 WPA-PBKDF2     500   md5crypt
 ```
 
-## Ataki
+## Attacks
 ```bash
-# Słownik + reguły (najskuteczniejsze na ludzkie hasła)
+# Dictionary + rules (most effective on human passwords)
 hashcat -m 1000 hashes.txt rockyou.txt -r rules/best64.rule
 
-# Maska (brute o znanym wzorcu) – ?l lower ?u upper ?d digit ?s special
+# Mask (brute with a known pattern) – ?l lower ?u upper ?d digit ?s special
 hashcat -m 1000 hashes.txt -a 3 '?u?l?l?l?l?l?d?d'
 
 # Combinator / hybrid
@@ -45,14 +45,14 @@ john --wordlist=rockyou.txt --rules hashes.txt
 john --show hashes.txt
 ```
 
-## Optymalizacja
-- `--opt-kernel` (-O), sortuj słowniki, dobre reguły (OneRuleToRuleThemAll).
-- Zacznij od słownik+reguły, potem maski na podstawie znalezionych wzorców.
+## Optimization
+- `--opt-kernel` (-O), sort wordlists, good rules (OneRuleToRuleThemAll).
+- Start with dictionary+rules, then masks based on found patterns.
 
-## Obrona (Blue Team / hardening)
-- Silne KDF: **bcrypt/scrypt/argon2** z solą (nie MD5/SHA-raw).
-- Wymuś długie hasła/passphrase, banned password list, MFA (redukuje wartość złamanego hasła).
-- Wolne hashe + per-user salt czynią masowy crack niepraktycznym.
+## Defense (Blue Team / hardening)
+- Strong KDFs: **bcrypt/scrypt/argon2** with a salt (not raw MD5/SHA).
+- Enforce long passwords/passphrases, banned password list, MFA (reduces the value of a cracked password).
+- Slow hashes + per-user salt make mass cracking impractical.
 
-## Źródła
+## Sources
 - [hashcat wiki](https://hashcat.net/wiki/) · [John the Ripper](https://www.openwall.com/john/)

@@ -1,5 +1,5 @@
 ---
-title: "Audyt – checklista dowodów"
+title: "Audit – evidence checklist"
 category: "compliance"
 tags: ["compliance", "audit", "evidence"]
 platform: "agnostic"
@@ -9,37 +9,37 @@ updated: "2026-07-11"
 author: "core"
 ---
 
-# Audyt – gromadzenie dowodów
+# Audit – evidence collection
 
 ## TL;DR
-Audytor weryfikuje, że kontrola jest **zaprojektowana** i **działa**. Dobry dowód: aktualny, kompletny, powtarzalny, powiązany z okresem audytu. Zbieraj ciągle, nie w noc przed audytem.
+An auditor verifies that a control is **designed** and **operating**. Good evidence: current, complete, repeatable, tied to the audit period. Collect continuously, not the night before the audit.
 
-## Rodzaje dowodów
+## Types of evidence
 ```text
-- Polityki i procedury (zatwierdzone, wersjonowane, z datą przeglądu)
-- Zrzuty konfiguracji (MFA on, szyfrowanie, retencja logów)
-- Logi/zapisy (dostępy, zmiany, przeglądy) za cały okres audytu
-- Tickety (change management, incydenty, dostęp) z akceptacjami
-- Wyniki testów (skany podatności, pentesty, DR test, backup restore)
-- Rejestry (ryzyk, aktywów, szkoleń, dostawców)
+- Policies and procedures (approved, versioned, with a review date)
+- Configuration screenshots (MFA on, encryption, log retention)
+- Logs/records (access, changes, reviews) for the whole audit period
+- Tickets (change management, incidents, access) with approvals
+- Test results (vuln scans, pentests, DR test, backup restore)
+- Registers (risks, assets, training, suppliers)
 ```
 
-## Checklista wg obszaru
+## Checklist by area
 ```text
-Kontrola dostępu   – przegląd uprawnień (kwartalny), lista offboardingu, MFA enforcement
-Change management  – tickety z approvalem, CI/CD logi, brak zmian bez zatwierdzenia
-Logowanie/monitoring – retencja, alerty, próbki reakcji na alert
-Kopie zapasowe     – harmonogram, log udanych backupów, dowód testu odtworzenia
-Vuln management    – skany, SLA remediacji, dowód załatania krytycznych
-Reakcja na incydent – runbooki, zapisy incydentów, post-mortem
-Dostawcy           – DPA/umowy, przeglądy ryzyka, SOC 2 dostawców
-HR/świadomość      – logi szkoleń, screening, NDA
+Access control    – access reviews (quarterly), offboarding list, MFA enforcement
+Change management – tickets with approval, CI/CD logs, no unapproved changes
+Logging/monitoring – retention, alerts, samples of alert response
+Backups           – schedule, backup success log, restore test evidence
+Vuln management   – scans, remediation SLA, evidence criticals are patched
+Incident response – runbooks, incident records, post-mortems
+Suppliers         – DPAs/contracts, risk reviews, suppliers' SOC 2
+HR/awareness      – training logs, screening, NDAs
 ```
 
-## Dobre praktyki
-- **Automatyzuj** zbieranie (Drata/Vanta/Secureframe lub własne skrypty + evidence store).
-- Próbkowanie: audytor wybierze losowe przypadki — dowód musi obejmować cały okres.
-- Powiąż każdy dowód z konkretną kontrolą (mapowanie kontrola → dowód).
+## Best practices
+- **Automate** collection (Drata/Vanta/Secureframe or your own scripts + evidence store).
+- Sampling: the auditor will pick random cases — evidence must cover the whole period.
+- Tie each piece of evidence to a specific control (control → evidence mapping).
 
-## Źródła
+## Sources
 - [AICPA SOC 2](https://www.aicpa-cima.com/) · [ISO 27001 Annex A](../frameworks/iso27001-annex-a.md)

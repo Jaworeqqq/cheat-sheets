@@ -1,5 +1,5 @@
 ---
-title: "OSINT – narzędzia i frameworki"
+title: "OSINT – tools and frameworks"
 category: "osint"
 tags: ["osint", "recon"]
 platform: "agnostic"
@@ -9,49 +9,49 @@ updated: "2026-07-11"
 author: "core"
 ---
 
-# OSINT – narzędzia i frameworki
+# OSINT – tools and frameworks
 
 ## TL;DR
-Rozpoznanie z jawnych źródeł: infrastruktura, ludzie, wycieki, media. Pasywne (bez dotykania celu) minimalizuje wykrycie.
+Reconnaissance from open sources: infrastructure, people, breaches, media. Passive (without touching the target) minimizes detection.
 
-## Infrastruktura
+## Infrastructure
 ```bash
 whois example.com
-amass enum -passive -d example.com          # subdomeny, ASN
-# Shodan – wystawione usługi
+amass enum -passive -d example.com          # subdomains, ASN
+# Shodan – exposed services
 shodan search "org:\"Example Corp\""
 shodan host 93.184.216.34
-# Censys / FOFA – analogicznie
-# theHarvester – e-maile, hosty, z wielu źródeł
+# Censys / FOFA – similarly
+# theHarvester – emails, hosts, from many sources
 theHarvester -d example.com -b all
 ```
 
-## Ludzie / konta
+## People / accounts
 ```text
-- Sherlock / Maigret – nazwa użytkownika po wielu serwisach
-- hunter.io / phonebook.cz – e-maile firmowe
-- LinkedIn -> lista pracowników -> format e-mail -> lista do spray/phishing
-- EXIF w publikowanych zdjęciach (exiftool) – lokalizacja, sprzęt
+- Sherlock / Maigret – username across many services
+- hunter.io / phonebook.cz – corporate emails
+- LinkedIn -> employee list -> email format -> list for spray/phishing
+- EXIF in published photos (exiftool) – location, device
 ```
 
-## Wycieki danych
+## Data breaches
 ```text
-- HaveIBeenPwned (API) – czy e-mail w wycieku
-- Dehashed / IntelX – dane z breachy (autoryzowane użycie)
-- GitHub/GitLab search + gitleaks/trufflehog na publicznych repo firmy
+- HaveIBeenPwned (API) – is an email in a breach
+- Dehashed / IntelX – breach data (authorized use)
+- GitHub/GitLab search + gitleaks/trufflehog on the company's public repos
 ```
 
-## Frameworki
+## Frameworks
 ```text
-- Maltego – graf powiązań (transforms)
-- SpiderFoot – automat OSINT (200+ modułów)
-- recon-ng – modułowy, jak metasploit dla OSINT
-- OSINT Framework (osintframework.com) – katalog narzędzi
+- Maltego – relationship graph (transforms)
+- SpiderFoot – OSINT automation (200+ modules)
+- recon-ng – modular, like metasploit for OSINT
+- OSINT Framework (osintframework.com) – tool catalog
 ```
 
-## Obrona (Blue Team)
-- Monitoruj własną powierzchnię (ASM), wycieki (HIBP domain), wzmianki firmy.
-- Minimalizuj metadane w publikacjach, świadomość pracowników (LinkedIn oversharing).
+## Defense (Blue Team)
+- Monitor your own surface (ASM), leaks (HIBP domain), company mentions.
+- Minimize metadata in publications, employee awareness (LinkedIn oversharing).
 
-## Źródła
+## Sources
 - [OSINT Framework](https://osintframework.com/) · [SpiderFoot](https://github.com/smicallef/spiderfoot)

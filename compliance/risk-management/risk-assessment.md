@@ -1,5 +1,5 @@
 ---
-title: "Ocena i zarządzanie ryzykiem"
+title: "Risk assessment and management"
 category: "compliance"
 tags: ["risk-management", "grc"]
 platform: "agnostic"
@@ -9,48 +9,48 @@ updated: "2026-07-11"
 author: "core"
 ---
 
-# Zarządzanie ryzykiem
+# Risk management
 
 ## TL;DR
-Ryzyko = prawdopodobieństwo × wpływ. Proces: identyfikuj → analizuj → oceń → potraktuj → monitoruj. Podstawa ISO 27005 / NIST 800-30. Napędza wybór kontroli (nie odwrotnie).
+Risk = likelihood × impact. Process: identify → analyze → evaluate → treat → monitor. Basis of ISO 27005 / NIST 800-30. It drives the choice of controls (not the other way around).
 
-## Proces (ISO 27005)
+## Process (ISO 27005)
 ```text
-1. Ustalenie kontekstu     – zakres, kryteria akceptacji ryzyka
-2. Identyfikacja           – aktywa, zagrożenia, podatności, skutki
-3. Analiza                 – prawdopodobieństwo × wpływ (jakościowo/ilościowo)
-4. Ewaluacja               – porównaj z apetytem na ryzyko
-5. Postępowanie (treatment) – redukuj / przenieś / unikaj / akceptuj
-6. Monitorowanie i przegląd – rejestr ryzyk, KRI, reasesment
+1. Establish context      – scope, risk acceptance criteria
+2. Identification         – assets, threats, vulnerabilities, impacts
+3. Analysis               – likelihood × impact (qualitative/quantitative)
+4. Evaluation             – compare against risk appetite
+5. Treatment              – reduce / transfer / avoid / accept
+6. Monitoring and review  – risk register, KRIs, reassessment
 ```
 
-## Macierz ryzyka (5×5)
+## Risk matrix (5×5)
 ```text
-Wpływ →        Niski  Śr   Wysoki  Krytyczny
-Prawd. ↓
-Bardzo wysokie   M    W     K        K
-Wysokie          N    M     W        K
-Średnie          N    M     M        W
-Niskie           N    N     M        W
-(N=niskie, M=średnie, W=wysokie, K=krytyczne -> priorytet działań)
+Impact →       Low   Med   High   Critical
+Likelihood ↓
+Very high        M    H     C        C
+High             L    M     H        C
+Medium           L    M     M        H
+Low              L    L     M        H
+(L=low, M=medium, H=high, C=critical -> action priority)
 ```
 
-## Opcje postępowania
+## Treatment options
 ```text
-Redukuj (mitigate) – wdróż kontrolę (najczęstsze)
-Przenieś (transfer) – ubezpieczenie, outsourcing
-Unikaj (avoid)      – zrezygnuj z ryzykownej działalności
-Akceptuj (accept)   – świadomie, z podpisem właściciela ryzyka (residual risk)
+Reduce (mitigate) – implement a control (most common)
+Transfer          – insurance, outsourcing
+Avoid             – drop the risky activity
+Accept            – deliberately, with the risk owner's sign-off (residual risk)
 ```
 
-## Rejestr ryzyk (pola)
+## Risk register (fields)
 ```text
-ID · opis · aktywo · zagrożenie/podatność · prawdopodobieństwo · wpływ ·
-ryzyko inherentne · kontrola · ryzyko rezydualne · właściciel · status · termin
+ID · description · asset · threat/vulnerability · likelihood · impact ·
+inherent risk · control · residual risk · owner · status · due date
 ```
 
-## Ilościowo (opcjonalnie)
-- **ALE = SLE × ARO** (Annual Loss Expectancy = Single Loss Expectancy × Annual Rate of Occurrence). Uzasadnia budżet kontroli (koszt kontroli < redukcja ALE).
+## Quantitative (optional)
+- **ALE = SLE × ARO** (Annual Loss Expectancy = Single Loss Expectancy × Annual Rate of Occurrence). Justifies control budget (control cost < ALE reduction).
 
-## Źródła
+## Sources
 - [NIST SP 800-30](https://csrc.nist.gov/pubs/sp/800/30/r1/final) · [ISO 27005](https://www.iso.org/standard/80585.html) · [FAIR](https://www.fairinstitute.org/)
