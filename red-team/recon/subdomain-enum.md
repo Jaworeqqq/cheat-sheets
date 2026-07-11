@@ -1,5 +1,5 @@
 ---
-title: "Enumeracja subdomen"
+title: "Subdomain enumeration"
 category: "red-team"
 tags: ["recon", "osint", "subdomains"]
 platform: "web"
@@ -9,41 +9,41 @@ updated: "2026-07-11"
 author: "core"
 ---
 
-# Enumeracja subdomen
+# Subdomain enumeration
 
 ## TL;DR
-Mapowanie powierzchni ataku domeny: pasywnie (bez dotykania celu) → aktywnie (bruteforce/permutacje) → weryfikacja żywych hostów.
+Map a domain's attack surface: passively (without touching the target) → actively (bruteforce/permutations) → verify live hosts.
 
-## Komendy
+## Commands
 ```bash
-# Pasywnie – z publicznych źródeł (CT logs, API)
+# Passive – from public sources (CT logs, APIs)
 subfinder -d example.com -all -silent -o subs.txt
 amass enum -passive -d example.com -o amass.txt
 
 # Certificate Transparency
 curl -s "https://crt.sh/?q=%25.example.com&output=json" | jq -r '.[].name_value' | sort -u
 
-# Aktywnie – bruteforce DNS
+# Active – DNS bruteforce
 puredns bruteforce wordlist.txt example.com -r resolvers.txt
 
-# Permutacje istniejących subdomen
+# Permutations of existing subdomains
 gotator -sub subs.txt -perm words.txt | puredns resolve -r resolvers.txt
 
-# Weryfikacja żywych + tytuł/status
+# Verify live + title/status
 cat subs.txt | httpx -silent -title -status-code -tech-detect
 ```
 
-## Wykrywanie (Blue Team)
-- Monitoruj **własne CT logi** (crt.sh, Cert Spotter) — nowe certy = nowe subdomeny do inwentaryzacji.
-- Anomalie w logach DNS: masowe NXDOMAIN z jednego resolvera = bruteforce.
+## Detection (Blue Team)
+- Monitor **your own CT logs** (crt.sh, Cert Spotter) — new certs = new subdomains to inventory.
+- DNS log anomalies: bursts of NXDOMAIN from one resolver = bruteforce.
 
-## Mitygacja / Hardening
-- Wildcard DNS z ostrożnością (utrudnia bruteforce, ale maskuje realny stan).
-- Regularna inwentaryzacja assetów (ASM), usuwanie martwych rekordów (dangling → subdomain takeover).
+## Mitigation / Hardening
+- Wildcard DNS with care (frustrates bruteforce but masks real state).
+- Regular asset inventory (ASM), remove dead records (dangling → subdomain takeover).
 
-## Uwagi / Pułapki
-- Sprawdź **subdomain takeover**: `nuclei -t takeovers/` na CNAME-ach wskazujących nieistniejące usługi (S3, Azure, GitHub Pages).
+## Notes / Pitfalls
+- Check for **subdomain takeover**: `nuclei -t takeovers/` on CNAMEs pointing to non-existent services (S3, Azure, GitHub Pages).
 
-## Źródła
+## Sources
 - [OWASP Amass](https://github.com/owasp-amass/amass)
 - [ProjectDiscovery](https://docs.projectdiscovery.io/)

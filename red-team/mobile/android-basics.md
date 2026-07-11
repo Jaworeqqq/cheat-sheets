@@ -1,5 +1,5 @@
 ---
-title: "Android – podstawy pentestu"
+title: "Android – pentest basics"
 category: "red-team"
 tags: ["mobile", "android"]
 platform: "mobile"
@@ -9,41 +9,41 @@ updated: "2026-07-11"
 author: "core"
 ---
 
-# Android – podstawy pentestu
+# Android – pentest basics
 
 ## TL;DR
-Statycznie: dekompilacja APK (manifest, sekrety, endpointy). Dynamicznie: przechwycenie ruchu (Burp + cert), instrumentacja (Frida) do obejścia SSL pinning/root detection.
+Statically: decompile the APK (manifest, secrets, endpoints). Dynamically: intercept traffic (Burp + cert), instrument (Frida) to bypass SSL pinning/root detection.
 
-## Statyczna analiza
+## Static analysis
 ```bash
-# Rozpakuj + dekompiluj
+# Unpack + decompile
 apktool d app.apk -o app_src
-jadx-gui app.apk                 # czytelny kod źródłowy
-# Szukaj sekretów/endpointów
+jadx-gui app.apk                 # readable source
+# Hunt for secrets/endpoints
 grep -rniE "api_key|secret|http://|https://|firebaseio" app_src
 ```
 
-## Dynamiczna
+## Dynamic
 ```bash
 adb install app.apk
 adb shell pm list packages | grep target
-# Proxy ruchu przez Burp (ustaw proxy + zainstaluj cert jako system CA)
+# Proxy traffic through Burp (set proxy + install cert as system CA)
 # SSL pinning / root bypass
 frida -U -f com.target.app -l frida-ssl-bypass.js
 objection -g com.target.app explore   # android sslpinning disable
 ```
 
-## Typowe problemy
+## Common issues
 ```text
-- Sekrety w kodzie/strings.xml         - Insecure storage (SharedPrefs, SQLite plaintext)
-- Eksportowane komponenty (activity/provider) - Debuggable=true
-- Słaba walidacja certów / brak pinningu    - WebView JS bridge
+- Secrets in code/strings.xml           - Insecure storage (SharedPrefs, SQLite plaintext)
+- Exported components (activity/provider) - Debuggable=true
+- Weak cert validation / no pinning       - WebView JS bridge
 ```
 
-## Mitygacja / Hardening (dla defensywy)
-- Nie trzymaj sekretów w APK; SSL pinning + walidacja; szyfruj lokalne dane.
-- `android:debuggable=false`, minimalizuj eksportowane komponenty, ProGuard/R8.
-- Root/tamper detection jako defense-in-depth (nie jedyna warstwa).
+## Mitigation / Hardening (defensive)
+- Don't ship secrets in the APK; SSL pinning + validation; encrypt local data.
+- `android:debuggable=false`, minimize exported components, ProGuard/R8.
+- Root/tamper detection as defense-in-depth (not the only layer).
 
-## Źródła
+## Sources
 - [OWASP MASTG](https://mas.owasp.org/) · [Frida](https://frida.re/)

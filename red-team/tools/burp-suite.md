@@ -1,5 +1,5 @@
 ---
-title: "Burp Suite – szybki warsztat"
+title: "Burp Suite – quick workshop"
 category: "red-team"
 tags: ["tools", "web", "proxy"]
 platform: "web"
@@ -12,39 +12,39 @@ author: "core"
 # Burp Suite
 
 ## TL;DR
-Proxy przechwytujący ruch HTTP(S). Przepływ: Proxy (przechwyć) → Repeater (ręczne manipulacje) → Intruder (fuzzing) → Scanner (Pro).
+An intercepting HTTP(S) proxy. Flow: Proxy (intercept) → Repeater (manual tampering) → Intruder (fuzzing) → Scanner (Pro).
 
 ## Setup
 ```text
 1. Proxy > Options: listener 127.0.0.1:8080
-2. Przeglądarka: proxy na 8080 (lub wbudowany Burp Browser)
-3. Zainstaluj cert CA Burpa (http://burp -> CA Certificate) by widzieć HTTPS
+2. Browser: proxy to 8080 (or the built-in Burp Browser)
+3. Install the Burp CA cert (http://burp -> CA Certificate) to see HTTPS
 ```
 
-## Moduły
+## Modules
 ```text
-Proxy     – przechwytuj/modyfikuj żądania w locie (Intercept)
-Repeater  – wyślij żądanie, edytuj, powtarzaj (Ctrl+R z Proxy)
+Proxy     – intercept/modify requests on the fly (Intercept)
+Repeater  – send a request, edit, repeat (Ctrl+R from Proxy)
 Intruder  – fuzzing: Sniper/Battering ram/Pitchfork/Cluster bomb
 Decoder   – encode/decode (base64, URL, hex)
-Comparer  – diff odpowiedzi (blind SQLi/boolean)
+Comparer  – diff responses (blind SQLi/boolean)
 Extender  – BApp Store (Autorize, Turbo Intruder, JWT Editor, Param Miner)
 ```
 
-## Przydatne rozszerzenia
+## Useful extensions
 ```text
-Autorize     – testy autoryzacji/IDOR (porównuje odpowiedzi z/bez sesji)
-Turbo Intruder – szybki fuzzing (race conditions)
-JWT Editor   – manipulacja i podpisywanie JWT
-Param Miner  – ukryte parametry, cache poisoning
+Autorize     – authorization/IDOR testing (compares responses with/without a session)
+Turbo Intruder – fast fuzzing (race conditions)
+JWT Editor   – JWT manipulation and signing
+Param Miner  – hidden parameters, cache poisoning
 ```
 
-## Uwagi / Pułapki
-- Scope ustaw na start (Target > Scope) — inaczej łapiesz szum z całego internetu.
-- Match & Replace do automatycznego wstrzykiwania nagłówków/tokenów.
+## Notes / Pitfalls
+- Set scope at the start (Target > Scope) — otherwise you catch noise from the whole internet.
+- Match & Replace to auto-inject headers/tokens.
 
-## Mitygacja / Hardening (perspektywa blue)
-- HSTS + cert pinning utrudnia MITM; certificate transparency monitoring.
+## Mitigation / Hardening (blue perspective)
+- HSTS + cert pinning makes MITM harder; certificate transparency monitoring.
 
-## Źródła
+## Sources
 - [PortSwigger – Burp docs](https://portswigger.net/burp/documentation)

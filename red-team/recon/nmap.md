@@ -1,5 +1,5 @@
 ---
-title: "Nmap – skanowanie i enumeracja"
+title: "Nmap – scanning and enumeration"
 category: "red-team"
 tags: ["recon", "scanning", "nmap"]
 platform: "agnostic"
@@ -9,48 +9,48 @@ updated: "2026-07-11"
 author: "core"
 ---
 
-# Nmap – skanowanie i enumeracja
+# Nmap – scanning and enumeration
 
 ## TL;DR
-Mapowanie hostów, portów i usług. Zacznij szeroko (host discovery), potem celowany skan usług + skrypty NSE.
+Map hosts, ports and services. Start broad (host discovery), then targeted service scan + NSE scripts.
 
-## Komendy
+## Commands
 ```bash
-# Host discovery (ping sweep, bez skanu portów)
+# Host discovery (ping sweep, no port scan)
 nmap -sn 10.10.10.0/24
 
-# Szybki skan top-1000 TCP
+# Fast top-1000 TCP scan
 nmap -sV -T4 10.10.10.5
 
-# Pełny skan wszystkich portów TCP + wersje + OS + skrypty domyślne
+# Full scan of all TCP ports + versions + OS + default scripts
 nmap -p- -sV -sC -O -T4 -oA scans/full 10.10.10.5
 
-# UDP top-100 (wolne – ogranicz porty)
+# UDP top-100 (slow – limit ports)
 nmap -sU --top-ports 100 10.10.10.5
 
-# Konkretne skrypty NSE (np. SMB)
+# Specific NSE scripts (e.g. SMB)
 nmap -p445 --script "smb-vuln-*" 10.10.10.5
 ```
 
-## Wykrywanie (Blue Team)
-Masowe SYN do wielu portów w krótkim czasie z jednego źródła.
+## Detection (Blue Team)
+Bursts of SYN to many ports in a short time from one source.
 ```sql
--- Splunk: potencjalny port scan
+-- Splunk: potential port scan
 index=firewall action=blocked
 | stats dc(dest_port) AS ports by src_ip
 | where ports > 100
 ```
-IDS: reguły Suricata/Snort na `stream5`/`sfPortscan`.
+IDS: Suricata/Snort `stream5`/`sfPortscan` rules.
 
-## Mitygacja / Hardening
-- Rate-limiting i IPS na brzegu sieci.
-- Minimalizacja ekspozycji portów (least exposure), segmentacja.
-- Firewall drop zamiast reject (utrudnia enumerację).
+## Mitigation / Hardening
+- Rate-limiting and IPS at the network edge.
+- Minimize port exposure (least exposure), segmentation.
+- Firewall drop instead of reject (makes enumeration harder).
 
-## Uwagi / Pułapki
-- `-T5` bywa nieprzyjazny/gubi wyniki na filtrowanych sieciach — trzymaj się `-T4`.
-- `-oA` zapisuje 3 formaty (nmap/gnmap/xml) — przydatne do dalszego parsowania.
+## Notes / Pitfalls
+- `-T5` can be unfriendly / drop results on filtered networks — stick with `-T4`.
+- `-oA` saves 3 formats (nmap/gnmap/xml) — handy for later parsing.
 
-## Źródła
+## Sources
 - [Nmap Reference Guide](https://nmap.org/book/man.html)
 - [MITRE T1046](https://attack.mitre.org/techniques/T1046/)

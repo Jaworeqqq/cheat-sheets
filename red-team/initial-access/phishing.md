@@ -1,5 +1,5 @@
 ---
-title: "Phishing – dostęp początkowy"
+title: "Phishing – initial access"
 category: "red-team"
 tags: ["initial-access", "phishing", "social-engineering"]
 platform: "agnostic"
@@ -9,42 +9,42 @@ updated: "2026-07-11"
 author: "core"
 ---
 
-# Phishing – dostęp początkowy
+# Phishing – initial access
 
 ## TL;DR
-Wektory: link do fałszywego logowania (credential harvest), złośliwy załącznik (makro/HTA/LNK), lub OAuth consent (device code). Zawsze w ramach autoryzowanego zaangażowania i uzgodnionego zakresu.
+Vectors: link to a fake login page (credential harvest), malicious attachment (macro/HTA/LNK), or OAuth consent (device code). Always within an authorized engagement and agreed scope.
 
-## Wymagania / Kontekst
-- Zaufana domena (postarzona), poprawny SPF/DKIM/DMARC na infrastrukturze wysyłkowej.
-- Pretekst dopasowany do celu (OSINT).
+## Requirements / Context
+- A trusted (aged) domain, correct SPF/DKIM/DMARC on the sending infrastructure.
+- A pretext tailored to the target (OSINT).
 
-## Techniki
+## Techniques
 ```text
-1. Credential harvesting  – Evilginx2 (reverse proxy, kradnie też sesję/MFA), GoPhish (landing)
-2. Payload w załączniku    – makra VBA, .lnk → LOLBin, .iso/.img (omija MOTW), HTML smuggling
-3. OAuth Device Code       – ofiara wkleja kod, atakujący dostaje token (omija hasło)
+1. Credential harvesting  – Evilginx2 (reverse proxy, also steals session/MFA), GoPhish (landing)
+2. Attachment payload      – VBA macros, .lnk → LOLBin, .iso/.img (bypasses MOTW), HTML smuggling
+3. OAuth Device Code       – victim enters a code, attacker receives a token (bypasses password)
 ```
 
 ```bash
-# GoPhish – framework kampanii (landing + tracking)
-./gophish   # panel na :3333
+# GoPhish – campaign framework (landing + tracking)
+./gophish   # panel on :3333
 
-# Evilginx2 – phishlet dla adversary-in-the-middle (kradnie sesyjne cookie + MFA)
+# Evilginx2 – phishlet for adversary-in-the-middle (steals session cookie + MFA)
 evilginx2 -p ./phishlets
 ```
 
-## Wykrywanie (Blue Team)
-- Nowo zarejestrowane / podobne domeny (typosquatting) — monitoring.
-- Email gateway: anomalie SPF/DKIM/DMARC, linki do świeżych domen, HTML z JS blob.
-- **Sign-in z nietypowej geolokalizacji tuż po kliknięciu** (AiTM → skradziona sesja).
+## Detection (Blue Team)
+- Newly registered / lookalike domains (typosquatting) — monitoring.
+- Email gateway: SPF/DKIM/DMARC anomalies, links to fresh domains, HTML with JS blob.
+- **Sign-in from an unusual geolocation right after a click** (AiTM → stolen session).
 
-## Mitygacja / Hardening
-- MFA odporne na phishing: **FIDO2 / passkeys** (Evilginx tego nie obejdzie).
-- Blokada legacy auth, ograniczenie OAuth consent, MOTW enforcement.
-- Szkolenia + łatwy przycisk „zgłoś phishing".
+## Mitigation / Hardening
+- Phishing-resistant MFA: **FIDO2 / passkeys** (Evilginx cannot bypass it).
+- Block legacy auth, restrict OAuth consent, enforce MOTW.
+- Training + an easy "report phishing" button.
 
-## Uwagi / Pułapki
-- FIDO2 pokonuje AiTM; zwykłe TOTP/SMS — nie.
+## Notes / Pitfalls
+- FIDO2 defeats AiTM; plain TOTP/SMS does not.
 
-## Źródła
+## Sources
 - [Evilginx](https://github.com/kgretzky/evilginx2) · [GoPhish](https://getgophish.com/)

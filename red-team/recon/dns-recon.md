@@ -12,34 +12,34 @@ author: "core"
 # DNS Recon
 
 ## TL;DR
-Rekordy DNS ujawniają infrastrukturę: mail (MX), serwery (A/AAAA), usługi (SRV), polityki (SPF/DMARC), a czasem transfer strefy oddaje wszystko.
+DNS records reveal infrastructure: mail (MX), servers (A/AAAA), services (SRV), policies (SPF/DMARC), and sometimes a zone transfer hands over everything.
 
-## Komendy
+## Commands
 ```bash
-# Podstawowe rekordy
+# Basic records
 dig example.com ANY +noall +answer
 dig example.com MX +short
-dig TXT example.com +short          # SPF/DMARC/weryfikacje
+dig TXT example.com +short          # SPF/DMARC/verifications
 
 # Reverse lookup
 dig -x 93.184.216.34 +short
 
-# Próba transferu strefy (AXFR) – częsty misconfig
+# Zone transfer (AXFR) attempt – common misconfig
 dig AXFR example.com @ns1.example.com
 
-# Automat
+# Automated
 dnsrecon -d example.com -t std,axfr
 fierce --domain example.com
 ```
 
-## Wykrywanie (Blue Team)
-- Żądania AXFR z niedozwolonych IP w logach serwera DNS.
-- Nietypowo wysoka liczba zapytań PTR/TXT z jednego źródła.
+## Detection (Blue Team)
+- AXFR requests from unauthorized IPs in the DNS server logs.
+- Unusually high volume of PTR/TXT queries from one source.
 
-## Mitygacja / Hardening
-- Ogranicz AXFR do autoryzowanych slave'ów (`allow-transfer`).
-- Minimalizuj informacje w rekordach TXT (nie zostawiaj starych weryfikacji).
-- Wdróż DMARC `p=reject`, poprawny SPF (`-all`).
+## Mitigation / Hardening
+- Restrict AXFR to authorized slaves (`allow-transfer`).
+- Minimize information in TXT records (don't leave stale verifications).
+- Deploy DMARC `p=reject`, a correct SPF (`-all`).
 
-## Źródła
+## Sources
 - [dnsrecon](https://github.com/darkoperator/dnsrecon)

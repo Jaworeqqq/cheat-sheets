@@ -1,5 +1,5 @@
 ---
-title: "BloodHound – analiza ścieżek ataku w AD"
+title: "BloodHound – AD attack path analysis"
 category: "red-team"
 tags: ["active-directory", "enumeration", "bloodhound"]
 platform: "windows"
@@ -12,42 +12,42 @@ author: "core"
 # BloodHound
 
 ## TL;DR
-Zbiera relacje w AD (członkostwa, ACL, sesje, delegacje) do grafu i pokazuje najkrótszą ścieżkę do Domain Admin. Zbieranie = SharpHound (collector), analiza = BloodHound GUI.
+Collects AD relationships (memberships, ACLs, sessions, delegations) into a graph and shows the shortest path to Domain Admin. Collection = SharpHound (collector), analysis = BloodHound GUI.
 
-## Zbieranie (SharpHound)
+## Collection (SharpHound)
 ```powershell
-# Windows, z hosta w domenie
+# Windows, from a domain-joined host
 SharpHound.exe -c All --zipfilename loot.zip
 ```
 ```bash
-# Z Linuksa, zdalnie (bez implantu) – bloodhound-python / netexec
+# From Linux, remotely (no implant) – bloodhound-python / netexec
 bloodhound-python -u user -p 'Pass' -d corp.local -ns 10.10.10.10 -c All
 nxc ldap 10.10.10.10 -u user -p 'Pass' --bloodhound -c All --dns-server 10.10.10.10
 ```
 
-## Analiza (typowe zapytania)
+## Analysis (common queries)
 ```text
 Pre-built:
  - "Find Shortest Paths to Domain Admins"
  - "Find Principals with DCSync Rights"
- - "Shortest Path from Owned Principals"  (oznacz swoje konta jako Owned!)
+ - "Shortest Path from Owned Principals"  (mark your accounts as Owned!)
 
-Przydatne kanty (edges):
- GenericAll / GenericWrite / WriteDacl / WriteOwner  -> przejęcie obiektu
- AddMember  -> dodaj się do grupy
- ForceChangePassword -> reset hasła użytkownika
+Useful edges:
+ GenericAll / GenericWrite / WriteDacl / WriteOwner  -> object takeover
+ AddMember  -> add yourself to a group
+ ForceChangePassword -> reset a user's password
  AllowedToDelegate / Constrained/Unconstrained delegation
 ```
 
-## Wykrywanie (Blue Team)
-- Masowe zapytania LDAP/SAMR z jednego hosta (enumeracja).
-- Nietypowe sesje SharpHound (`--stealth` je ogranicza, ale LDAP i tak widać).
-- Honeytoken: konto-przynęta z „ciekawymi" ACL.
+## Detection (Blue Team)
+- Bursts of LDAP/SAMR queries from one host (enumeration).
+- Unusual SharpHound sessions (`--stealth` reduces them, but LDAP is still visible).
+- Honeytoken: a decoy account with "interesting" ACLs.
 
-## Mitygacja / Hardening
-- Ograniczaj nadmiarowe ACL (GenericAll/WriteDacl), tiering (Tier 0/1/2).
-- Usuwaj unconstrained delegation, czyść zagnieżdżone członkostwa grup.
-- Monitoruj i redukuj ścieżki do DA (regularne przeglądy grafu przez blue team).
+## Mitigation / Hardening
+- Reduce excessive ACLs (GenericAll/WriteDacl), enforce tiering (Tier 0/1/2).
+- Remove unconstrained delegation, clean up nested group memberships.
+- Monitor and reduce paths to DA (regular graph reviews by the blue team).
 
-## Źródła
+## Sources
 - [BloodHound CE](https://github.com/SpecterOps/BloodHound) · [The Hacker Recipes – AD](https://www.thehacker.recipes/ad/)

