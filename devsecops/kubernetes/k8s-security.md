@@ -1,5 +1,5 @@
 ---
-title: "Kubernetes Security"
+title: "Kubernetes security"
 category: "devsecops"
 tags: ["kubernetes", "k8s", "hardening"]
 platform: "agnostic"
@@ -9,16 +9,16 @@ updated: "2026-07-11"
 author: "core"
 ---
 
-# Kubernetes Security
+# Kubernetes security
 
 ## TL;DR
-Warstwy: RBAC (kto może co), Pod Security (jak działają pody), NetworkPolicy (ruch), admission control (co wpuścić), secrets. Domyślne klastry są zbyt liberalne.
+Layers: RBAC (who can do what), Pod Security (how pods run), NetworkPolicy (traffic), admission control (what to admit), secrets. Default clusters are too permissive.
 
-## Audyt klastra
+## Cluster audit
 ```bash
 kube-bench run              # CIS Benchmark
-kubectl-who-can create pods --all-namespaces   # kto ma groźne uprawnienia
-kubescape scan             # postura + NSA/CISA hardening
+kubectl-who-can create pods --all-namespaces   # who has dangerous permissions
+kubescape scan             # posture + NSA/CISA hardening
 ```
 
 ## RBAC – least privilege
@@ -27,12 +27,12 @@ kind: Role
 rules:
   - apiGroups: [""]
     resources: ["pods"]
-    verbs: ["get","list"]        # NIE "*" i NIE cluster-admin dla appek
+    verbs: ["get","list"]        # NOT "*" and NOT cluster-admin for apps
 ```
 ```bash
-# Groźne uprawnienia do wychwycenia:
+# Dangerous permissions to catch:
 # create pods (+ hostPath/privileged), secrets get/list, exec, impersonate,
-# bind/escalate na rolach, nodes/proxy
+# bind/escalate on roles, nodes/proxy
 ```
 
 ## Pod Security Standards
@@ -43,7 +43,7 @@ metadata:
     pod-security.kubernetes.io/enforce: restricted
 ```
 ```yaml
-# securityContext podu
+# pod securityContext
 securityContext:
   runAsNonRoot: true
   readOnlyRootFilesystem: true
@@ -57,15 +57,15 @@ securityContext:
 kind: NetworkPolicy
 spec:
   podSelector: {}
-  policyTypes: [Ingress, Egress]   # nic bez jawnego allow
+  policyTypes: [Ingress, Egress]   # nothing without an explicit allow
 ```
 
 ## Admission control
-- OPA/Gatekeeper lub Kyverno: blokuj `privileged`, `hostPath`, `:latest`, wymuszaj skan/podpis obrazu.
+- OPA/Gatekeeper or Kyverno: block `privileged`, `hostPath`, `:latest`, enforce image scanning/signing.
 
-## Wykrywanie (Blue Team)
-- Falco (spawn shell w podzie, `kubectl exec`, mount wrażliwych ścieżek).
-- Audit log API servera: anomalne `create pods`, dostęp do secrets, impersonate.
+## Detection (Blue Team)
+- Falco (spawning a shell in a pod, `kubectl exec`, mounting sensitive paths).
+- API server audit log: anomalous `create pods`, secrets access, impersonate.
 
-## Źródła
+## Sources
 - [kube-bench](https://github.com/aquasecurity/kube-bench) · [NSA/CISA k8s Hardening](https://media.defense.gov/2022/Aug/29/2003066362/-1/-1/0/CTR_KUBERNETES_HARDENING_GUIDANCE_1.2_20220829.PDF) · [Kyverno](https://kyverno.io/)

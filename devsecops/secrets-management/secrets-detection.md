@@ -1,5 +1,5 @@
 ---
-title: "Detekcja i zarządzanie sekretami"
+title: "Secret detection and management"
 category: "devsecops"
 tags: ["secrets-management", "gitleaks", "vault"]
 platform: "agnostic"
@@ -9,23 +9,23 @@ updated: "2026-07-11"
 author: "core"
 ---
 
-# Sekrety – detekcja i zarządzanie
+# Secrets – detection and management
 
 ## TL;DR
-Nie trzymaj sekretów w kodzie. Zapobiegaj (pre-commit scan), wykrywaj (skan historii), zarządzaj (Vault/KMS/secret manager), rotuj po wycieku.
+Don't keep secrets in code. Prevent (pre-commit scan), detect (scan history), manage (Vault/KMS/secret manager), rotate after a leak.
 
-## Detekcja
+## Detection
 ```bash
-# gitleaks – skan repo + historii
+# gitleaks – scan repo + history
 gitleaks detect --source . --redact -v
-gitleaks protect --staged            # pre-commit (przed commitem)
+gitleaks protect --staged            # pre-commit (before the commit)
 
-# trufflehog – weryfikuje czy sekret żywy
+# trufflehog – verifies whether a secret is live
 trufflehog git file://. --only-verified
 trufflehog github --repo=https://github.com/org/repo
 ```
 
-## Pre-commit (zapobieganie)
+## Pre-commit (prevention)
 ```yaml
 repos:
   - repo: https://github.com/gitleaks/gitleaks
@@ -33,26 +33,26 @@ repos:
     hooks: [{ id: gitleaks }]
 ```
 
-## Zarządzanie
+## Management
 ```text
-HashiCorp Vault  – dynamiczne sekrety, leasing, rotacja, transit encryption
+HashiCorp Vault  – dynamic secrets, leasing, rotation, transit encryption
 Cloud native     – AWS Secrets Manager / KMS, Azure Key Vault, GCP Secret Manager
-K8s              – External Secrets Operator (sync z Vault/cloud), Sealed Secrets, SOPS
-CI/CD            – OIDC zamiast long-lived, masked secrets, environment scoping
+K8s              – External Secrets Operator (sync with Vault/cloud), Sealed Secrets, SOPS
+CI/CD            – OIDC instead of long-lived, masked secrets, environment scoping
 ```
 
 ```bash
-# SOPS – szyfrowanie plików sekretów w repo (KMS/age)
+# SOPS – encrypt secret files in the repo (KMS/age)
 sops -e secrets.yaml > secrets.enc.yaml
 sops -d secrets.enc.yaml
 ```
 
-## Reakcja na wyciek (kolejność!)
+## Leak response (order matters!)
 ```text
-1. ROTUJ/unieważnij sekret (usunięcie z gita NIE wystarczy — jest w historii/forkach).
-2. Zbadaj czy użyty (logi dostępu).
-3. Dopiero potem czyść historię (git filter-repo) jeśli trzeba.
+1. ROTATE/revoke the secret (removing it from git is NOT enough — it's in history/forks).
+2. Investigate whether it was used (access logs).
+3. Only then clean history (git filter-repo) if needed.
 ```
 
-## Źródła
+## Sources
 - [gitleaks](https://github.com/gitleaks/gitleaks) · [trufflehog](https://github.com/trufflesecurity/trufflehog) · [SOPS](https://github.com/getsops/sops)

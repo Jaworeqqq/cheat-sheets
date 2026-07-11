@@ -1,5 +1,5 @@
 ---
-title: "IaC Security Scanning"
+title: "IaC security scanning"
 category: "devsecops"
 tags: ["iac", "terraform", "scanning"]
 platform: "agnostic"
@@ -9,18 +9,18 @@ updated: "2026-07-11"
 author: "core"
 ---
 
-# IaC Security Scanning
+# IaC security scanning
 
 ## TL;DR
-Skanuj Terraform/CloudFormation/Bicep/K8s manifesty pod misconfig **przed** deploymentem (shift-left). Wpinaj w pre-commit i CI, blokuj krytyczne.
+Scan Terraform/CloudFormation/Bicep/K8s manifests for misconfigs **before** deployment (shift-left). Wire it into pre-commit and CI, block criticals.
 
-## Narzędzia
+## Tools
 ```bash
-# Checkov (szeroki, multi-format)
+# Checkov (broad, multi-format)
 checkov -d . --compact
 checkov -d . --framework terraform --check CKV_AWS_20
 
-# tfsec / trivy (trivy wchłonął tfsec)
+# tfsec / trivy (trivy absorbed tfsec)
 trivy config .
 trivy config --severity HIGH,CRITICAL ./infra
 
@@ -30,17 +30,17 @@ kics scan -p . -o results
 terrascan scan -i terraform
 ```
 
-## Typowe wykrycia
+## Common findings
 ```text
-- S3/bucket publiczny, brak szyfrowania at-rest
-- Security group 0.0.0.0/0 na 22/3389/3306
-- Brak logowania (CloudTrail/flow logs), brak wersjonowania
-- IAM z "*" na Action/Resource
-- Hardcoded sekrety w zmiennych
-- Brak encryption in transit (TLS)
+- Public S3/bucket, no at-rest encryption
+- Security group 0.0.0.0/0 on 22/3389/3306
+- No logging (CloudTrail/flow logs), no versioning
+- IAM with "*" on Action/Resource
+- Hardcoded secrets in variables
+- No encryption in transit (TLS)
 ```
 
-## Integracja
+## Integration
 ```yaml
 # pre-commit
 repos:
@@ -48,14 +48,14 @@ repos:
     hooks: [{ id: checkov }]
 ```
 ```yaml
-# CI – blokuj krytyczne
+# CI – block criticals
 - run: trivy config --exit-code 1 --severity CRITICAL .
 ```
 
-## Dobre praktyki
-- Baseline + świadome wyjątki (`#checkov:skip=CKV_...:powód`), nie wyłączaj globalnie.
-- Łącz z policy-as-code (OPA/Conftest) dla reguł organizacyjnych.
-- Skanuj też **plan** (drift, faktyczny stan), nie tylko kod.
+## Best practices
+- Baseline + deliberate exceptions (`#checkov:skip=CKV_...:reason`), don't disable globally.
+- Combine with policy-as-code (OPA/Conftest) for organizational rules.
+- Scan the **plan** too (drift, actual state), not just the code.
 
-## Źródła
+## Sources
 - [Checkov](https://www.checkov.io/) · [Trivy config](https://trivy.dev/) · [KICS](https://kics.io/)

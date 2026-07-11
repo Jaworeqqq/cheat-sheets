@@ -1,5 +1,5 @@
 ---
-title: "Supply Chain – SBOM, podpisy, SLSA"
+title: "Supply chain – SBOM, signing, SLSA"
 category: "devsecops"
 tags: ["supply-chain", "sbom", "sigstore", "slsa"]
 platform: "agnostic"
@@ -9,48 +9,48 @@ updated: "2026-07-11"
 author: "core"
 ---
 
-# Supply Chain Security
+# Supply chain security
 
 ## TL;DR
-Zabezpiecz łańcuch od kodu do artefaktu: **SBOM** (co jest w środku), **podpisy** (autentyczność, cosign), **provenance/SLSA** (jak zbudowano). Chroni przed atakami typu SolarWinds/dependency confusion.
+Secure the chain from code to artifact: **SBOM** (what's inside), **signing** (authenticity, cosign), **provenance/SLSA** (how it was built). Protects against attacks like SolarWinds/dependency confusion.
 
 ## SBOM (Software Bill of Materials)
 ```bash
-# Generowanie (CycloneDX / SPDX)
+# Generation (CycloneDX / SPDX)
 syft myimage:latest -o cyclonedx-json > sbom.json
 trivy image --format cyclonedx -o sbom.json myimage:latest
-# Skan SBOM pod CVE
+# Scan the SBOM for CVEs
 grype sbom:sbom.json
 ```
 
-## Podpisywanie (Sigstore / cosign)
+## Signing (Sigstore / cosign)
 ```bash
-# Keyless (OIDC – bez zarządzania kluczami)
+# Keyless (OIDC – no key management)
 cosign sign myregistry/app@sha256:...
 cosign verify myregistry/app@sha256:... \
   --certificate-identity=... --certificate-oidc-issuer=https://token.actions.githubusercontent.com
 
-# Dołącz SBOM/attestacje do obrazu
+# Attach SBOM/attestations to the image
 cosign attest --predicate sbom.json --type cyclonedx myregistry/app@sha256:...
 ```
 
 ## SLSA (provenance)
 ```text
-Poziomy SLSA:
- L1 – jest provenance   L2 – podpisana, hostowany build
- L3 – zabezpieczony, nieforgeowalny build   L4/najwyższe – reprodukowalny, dwuosobowy review
-Cel: móc udowodnić, że artefakt powstał z danego źródła w danym pipeline.
+SLSA levels:
+ L1 – provenance exists   L2 – signed, hosted build
+ L3 – hardened, non-forgeable build   L4/highest – reproducible, two-person review
+Goal: be able to prove an artifact came from a given source in a given pipeline.
 ```
 
-## Ochrona przed atakami
+## Protection against attacks
 ```text
-Dependency confusion – priorytet rejestrów, scoping, namespacing paczek
-Typosquatting        – lockfile + weryfikacja, allow-list
-Kompromitacja buildu – hermetyczny build, pinned deps, provenance
+Dependency confusion – registry priority, scoping, package namespacing
+Typosquatting        – lockfile + verification, allow-list
+Build compromise     – hermetic build, pinned deps, provenance
 ```
 
-## Admission (weryfikacja przy deployu)
-- Kyverno/Gatekeeper/Connaisseur: dopuść tylko podpisane obrazy z ważną provenance.
+## Admission (verification at deploy)
+- Kyverno/Gatekeeper/Connaisseur: admit only signed images with valid provenance.
 
-## Źródła
+## Sources
 - [Sigstore/cosign](https://docs.sigstore.dev/) · [SLSA](https://slsa.dev/) · [Syft](https://github.com/anchore/syft)
