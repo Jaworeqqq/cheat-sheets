@@ -25,7 +25,7 @@ A well-organized, practical collection of cybersecurity cheat sheets — Red Tea
 
 ## 📈 Coverage status
 
-The repo has foundational cheat sheets filled in for every section (70+ documents) plus a skeleton for the rest. Each section `README.md` has a "priority backlog" list (checked = done).
+The repo has 100+ cheat sheets filled in across every section, and each section `README.md` has a "priority backlog" list (checked = done) tracking what's next.
 
 | Section | Filled cheat sheets (examples) |
 |---------|--------------------------------|
