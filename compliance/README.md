@@ -13,4 +13,5 @@ Frameworks, controls, audit and risk management.
 - [x] `frameworks/` – frameworks-overview, iso27001-annex-a, nist-csf, pci-dss-v4, gdpr
 - [x] `audit/evidence-checklist.md`
 - [x] `risk-management/risk-assessment.md`
-- [ ] Todo: `frameworks/soc2`, `policies/` (access-control, IR, BCP templates), `frameworks/dora-nis2`
+- [x] `frameworks/soc2.md`, `frameworks/dora-nis2.md`, `policies/policy-templates.md`
+- [ ] Todo: `frameworks/hipaa`, `audit/soc2-vs-iso-crosswalk`, `risk-management/vendor-risk`
