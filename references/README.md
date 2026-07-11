@@ -1,8 +1,8 @@
 # 🔗 References
 
-Kuratorowane, zewnętrzne źródła (nie duplikujemy — linkujemy).
+Curated, external resources (we don't duplicate — we link).
 
-## Standardy i frameworki
+## Standards and frameworks
 - [MITRE ATT&CK](https://attack.mitre.org/) · [D3FEND](https://d3fend.mitre.org/)
 - [NIST CSF](https://www.nist.gov/cyberframework) · [NIST 800-53](https://csrc.nist.gov/pubs/sp/800/53/r5/upd1/final)
 - [OWASP Top 10](https://owasp.org/Top10/) · [OWASP ASVS](https://owasp.org/www-project-application-security-verification-standard/)
@@ -15,10 +15,10 @@ Kuratorowane, zewnętrzne źródła (nie duplikujemy — linkujemy).
 
 ## Blue Team / DFIR
 - [Sigma HQ](https://github.com/SigmaHQ/sigma) · [Atomic Red Team](https://github.com/redcanaryco/atomic-red-team)
-- [DFIR Report](https://thedfirreport.com/)
+- [The DFIR Report](https://thedfirreport.com/)
 
 ## Cloud
 - [HackTricks Cloud](https://cloud.hacktricks.xyz/) · [CloudSecDocs](https://cloudsecdocs.com/)
 
-## Trening
+## Training
 - [TryHackMe](https://tryhackme.com/) · [Hack The Box](https://www.hackthebox.com/) · [PortSwigger Web Security Academy](https://portswigger.net/web-security)

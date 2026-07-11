@@ -1,39 +1,39 @@
 ---
-title: "<Tytuł ściągawki>"
+title: "<Cheat sheet title>"
 category: "<red-team|blue-team|devsecops|cloud-security|appsec|compliance|...>"
 tags: ["tag1", "tag2"]
 platform: "<linux|windows|web|aws|k8s|agnostic>"
-mitre: ["Txxxx"]          # ID technik MITRE ATT&CK (jeśli dotyczy)
+mitre: ["Txxxx"]          # MITRE ATT&CK technique IDs (if applicable)
 difficulty: "<basic|intermediate|advanced>"
 updated: "YYYY-MM-DD"
-author: "<nick>"
+author: "<handle>"
 ---
 
-# <Tytuł>
+# <Title>
 
 ## TL;DR
-Jedno-dwa zdania: co to jest i kiedy tego użyć.
+One or two sentences: what it is and when to use it.
 
-## Wymagania / Kontekst
-- Uprawnienia, narzędzia, warunki wstępne.
+## Requirements / Context
+- Privileges, tools, preconditions.
 
-## Komendy
+## Commands
 ```bash
-# opis kroku
+# step description
 command --flag value
 ```
 
-## Wykrywanie (Blue Team)
-Jak to wykryć: logi, sygnatury, zapytania SIEM/EDR.
+## Detection (Blue Team)
+How to detect it: logs, signatures, SIEM/EDR queries.
 ```sql
--- przykładowy detection query
+-- example detection query
 ```
 
-## Mitygacja / Hardening
-- Konkretne kroki zaradcze.
+## Mitigation / Hardening
+- Concrete remediation steps.
 
-## Uwagi / Pułapki
-- Częste błędy, false positives, warianty OPSEC.
+## Notes / Pitfalls
+- Common mistakes, false positives, OPSEC variants.
 
-## Źródła
-- [Nazwa](https://example.com)
+## Sources
+- [Name](https://example.com)

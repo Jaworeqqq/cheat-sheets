@@ -1,35 +1,35 @@
-# Współtworzenie
+# Contributing
 
-Dzięki za wkład! To repo utrzymuje spójny format, żeby ściągawki były szybkie do przeszukania.
+Thanks for contributing! This repo keeps a consistent format so cheat sheets stay fast to search.
 
-## Zasady
+## Rules
 
-1. **Jedna ściągawka = jeden plik `.md`** w odpowiednim dziale.
-2. Zaczynaj od [`_templates/cheatsheet-template.md`](./_templates/cheatsheet-template.md) — zachowaj frontmatter YAML.
-3. **Nazwy plików:** `kebab-case`, opisowe (`windows-uac-bypass.md`, nie `notes2.md`).
-4. Bloki kodu **zawsze** z językiem: ` ```bash `, ` ```powershell `, ` ```yaml `.
-5. Techniki ofensywne dołączaj z sekcjami **Wykrywanie** i **Mitygacja**.
-6. Żadnych realnych sekretów, kluczy, danych klientów, IP z prawdziwych zaangażowań.
-7. Podawaj **źródła** — linkuj oryginalne badania/dokumentację.
+1. **One cheat sheet = one `.md` file** in the appropriate section.
+2. Start from [`_templates/cheatsheet-template.md`](./_templates/cheatsheet-template.md) — keep the YAML frontmatter.
+3. **File names:** `kebab-case`, descriptive (`windows-uac-bypass.md`, not `notes2.md`).
+4. Code blocks **always** with a language: ` ```bash `, ` ```powershell `, ` ```yaml `.
+5. Include **Detection** and **Mitigation** sections for offensive techniques.
+6. No real secrets, keys, client data, or IPs from actual engagements.
+7. Cite **sources** — link the original research/documentation.
 
 ## Workflow
 
 ```bash
-git checkout -b add/<krotki-opis>
-cp _templates/cheatsheet-template.md red-team/recon/moja-sciagawka.md
-# ...edytuj...
-git add . && git commit -m "add: recon cheatsheet – <temat>"
-git push origin add/<krotki-opis>
-# otwórz Pull Request
+git checkout -b add/<short-description>
+cp _templates/cheatsheet-template.md red-team/recon/my-cheatsheet.md
+# ...edit...
+git add . && git commit -m "add: recon cheatsheet – <topic>"
+git push origin add/<short-description>
+# open a Pull Request
 ```
 
-## Styl commitów
+## Commit style
 
-`typ: krótki opis` — gdzie typ to `add`, `update`, `fix`, `docs`, `refactor`.
+`type: short description` — where type is `add`, `update`, `fix`, `docs`, `refactor`.
 
 ## Lint
 
-CI uruchamia `markdownlint`. Sprawdź lokalnie:
+CI runs `markdownlint`. Check locally:
 
 ```bash
 npx markdownlint-cli2 "**/*.md"

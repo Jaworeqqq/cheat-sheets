@@ -1,5 +1,5 @@
 # 🌐 Networking
 
-Protokoły, analiza ruchu, pivoting i tunelowanie.
+Protocols, traffic analysis, pivoting and tunneling.
 
-Planowane ściągawki: `tcpdump.md`, `wireshark-filters.md`, `ssh-tunneling.md`, `proxychains-pivoting.md`, `common-ports.md`, `dns.md`.
+Planned cheat sheets: `tcpdump.md`, `wireshark-filters.md`, `ssh-tunneling.md`, `proxychains-pivoting.md`, `common-ports.md`, `dns.md`.

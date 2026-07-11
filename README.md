@@ -1,72 +1,72 @@
 # 🛡️ cheat-sheets
 
-Uporządkowana, praktyczna kolekcja ściągawek z zakresu cyberbezpieczeństwa — Red Team, Blue Team, DevSecOps, Cloud Security, AppSec i Compliance. Jedno miejsce, spójny format, szybkie wyszukiwanie.
+A well-organized, practical collection of cybersecurity cheat sheets — Red Team, Blue Team, DevSecOps, Cloud Security, AppSec and Compliance. One place, one consistent format, fast lookup.
 
-> ⚠️ **Tylko do celów edukacyjnych i autoryzowanych testów.** Materiały ofensywne (Red Team) używaj wyłącznie w ramach legalnych zaangażowań, laboratoriów CTF i badań, na które masz pisemną zgodę. Zobacz [DISCLAIMER](#-disclaimer).
+> ⚠️ **For educational purposes and authorized testing only.** Use offensive (Red Team) material exclusively within legal engagements, CTF labs and research for which you have written authorization. See [Disclaimer](#-disclaimer).
 
 ---
 
-## 📚 Spis treści
+## 📚 Table of Contents
 
-| Dział | Zakres |
-|-------|--------|
-| [🔴 red-team](./red-team/) | Rekonesans, exploitacja, eskalacja uprawnień, AD, C2, exfiltracja |
-| [🔵 blue-team](./blue-team/) | Detekcja, IR, threat hunting, forensics, SIEM, malware analysis |
-| [⚙️ devsecops](./devsecops/) | CI/CD, kontenery, Kubernetes, IaC, sekrety, SAST/DAST/SCA, supply chain |
+| Section | Scope |
+|---------|-------|
+| [🔴 red-team](./red-team/) | Recon, exploitation, privilege escalation, AD, C2, exfiltration |
+| [🔵 blue-team](./blue-team/) | Detection, IR, threat hunting, forensics, SIEM, malware analysis |
+| [⚙️ devsecops](./devsecops/) | CI/CD, containers, Kubernetes, IaC, secrets, SAST/DAST/SCA, supply chain |
 | [☁️ cloud-security](./cloud-security/) | AWS, Azure, GCP, multi-cloud |
 | [🧩 appsec](./appsec/) | OWASP Top 10, API security, secure coding, threat modeling |
-| [📋 compliance](./compliance/) | ISO 27001, SOC 2, NIST, PCI-DSS, GDPR, audyt, zarządzanie ryzykiem |
-| [🕵️ osint](./osint/) | Rozpoznanie z otwartych źródeł |
-| [🌐 networking](./networking/) | Protokoły, analiza ruchu, pivoting |
-| [🔐 cryptography](./cryptography/) | Szyfry, hashe, PKI, łamanie haseł |
-| [🔗 references](./references/) | Linki, książki, kursy, standardy |
+| [📋 compliance](./compliance/) | ISO 27001, SOC 2, NIST, PCI-DSS, GDPR, audit, risk management |
+| [🕵️ osint](./osint/) | Open-source intelligence |
+| [🌐 networking](./networking/) | Protocols, traffic analysis, pivoting |
+| [🔐 cryptography](./cryptography/) | Ciphers, hashes, PKI, password cracking |
+| [🔗 references](./references/) | Links, books, courses, standards |
 
 ---
 
-## 📈 Stan wypełnienia
+## 📈 Coverage status
 
-Repo ma wypełnione ściągawki-fundamenty w każdym dziale (ponad 70 dokumentów) plus szkielet pod resztę. Każdy `README.md` działu ma listę „priorytet do uzupełnienia" (odhaczone = gotowe).
+The repo has foundational cheat sheets filled in for every section (70+ documents) plus a skeleton for the rest. Each section `README.md` has a "priority backlog" list (checked = done).
 
-| Dział | Gotowe ściągawki (przykłady) |
-|-------|------------------------------|
+| Section | Filled cheat sheets (examples) |
+|---------|--------------------------------|
 | red-team | nmap, subdomain-enum, phishing, reverse-shells, linux/windows privesc, kerberoasting, asreproast, bloodhound, adcs-esc, pass-the-hash, C2, SQLi, XSS, SSRF, wifi, burp, netexec |
-| blue-team | windows-event-ids, sigma, yara, IR (proces + ransomware), threat-hunting, splunk-spl, kql, dfir-triage, malware-analysis, cis-linux |
+| blue-team | windows-event-ids, sigma, yara, IR (process + ransomware), threat-hunting, splunk-spl, kql, dfir-triage, malware-analysis, cis-linux |
 | devsecops | actions-hardening, docker, k8s-security, iac-scanning, secrets-detection, sast-dast-sca, sbom-cosign |
 | cloud-security | aws iam/s3, entra-enumeration, gcp-iam |
 | appsec | owasp-top10, broken-access-control, jwt, stride, input-validation |
 | compliance | frameworks-overview, iso27001, nist-csf, pci-dss, gdpr, evidence-checklist, risk-assessment |
 | osint / networking / cryptography | google-dorking, recon-frameworks, common-ports, ssh-tunneling, password-cracking, openssl |
 
-## 🗂️ Jak korzystać
+## 🗂️ How to use
 
-Każdy dział ma własny `README.md` (spis podtematów). Każda ściągawka to jeden plik `.md` w spójnym formacie — patrz [`_templates/cheatsheet-template.md`](./_templates/cheatsheet-template.md).
+Each section has its own `README.md` (index of subtopics). Each cheat sheet is a single `.md` file in a consistent format — see [`_templates/cheatsheet-template.md`](./_templates/cheatsheet-template.md).
 
-**Szybkie wyszukiwanie w repo:**
+**Quick search across the repo:**
 
 ```bash
-# Znajdź ściągawkę po słowie kluczowym
+# Find a cheat sheet by keyword
 grep -rin "kerberoast" --include="*.md" .
 
-# Wypisz wszystkie ściągawki w dziale
+# List all cheat sheets in a section
 find red-team -name "*.md" -not -name "README.md"
 ```
 
-## 🧭 Konwencje
+## 🧭 Conventions
 
-- **Język:** treść PL/EN (dopuszczalne mieszanie — komendy zawsze EN).
-- **Nazwy plików:** `kebab-case.md`, opisowe (np. `linux-privesc-suid.md`).
-- **Format:** nagłówek z metadanymi + sekcje `TL;DR`, `Komendy`, `Wykrywanie`, `Mitygacja`, `Źródła`.
-- **Bloki kodu:** zawsze z określonym językiem (```bash, ```powershell, ```yaml).
-- Każda technika ofensywna **powinna** mieć sekcję *Wykrywanie* i *Mitygacja* (mostek Red→Blue).
+- **Language:** English (commands always in English).
+- **File names:** `kebab-case.md`, descriptive (e.g. `linux-privesc-suid.md`).
+- **Format:** metadata header + `TL;DR`, `Commands`, `Detection`, `Mitigation`, `Sources` sections.
+- **Code blocks:** always with an explicit language (```bash, ```powershell, ```yaml).
+- Every offensive technique **should** carry a *Detection* and *Mitigation* section (Red→Blue bridge).
 
-## 🤝 Współtworzenie
+## 🤝 Contributing
 
-Zobacz [CONTRIBUTING.md](./CONTRIBUTING.md). W skrócie: skopiuj szablon, wypełnij, otwórz PR. Lint Markdown uruchamia się automatycznie w CI.
+See [CONTRIBUTING.md](./CONTRIBUTING.md). In short: copy the template, fill it in, open a PR. Markdown lint runs automatically in CI.
 
 ## ⚖️ Disclaimer
 
-Repozytorium służy nauce, obronie i autoryzowanym testom bezpieczeństwa. Autorzy nie ponoszą odpowiedzialności za nadużycia. Nie używaj tych materiałów na systemach, do których nie masz jawnej autoryzacji.
+This repository is for learning, defense and authorized security testing. The authors take no responsibility for misuse. Do not use this material against systems you are not explicitly authorized to test.
 
-## 📄 Licencja
+## 📄 License
 
-[MIT](./LICENSE) — treść cheatsheetów na [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
+[MIT](./LICENSE) — cheat-sheet content under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).

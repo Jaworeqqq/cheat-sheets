@@ -1,7 +1,7 @@
-# Reguły markdownlint – złagodzone pod ściągawki
+# markdownlint rules – relaxed for cheat sheets
 default: true
-MD013: false   # długość linii – komendy bywają długie
-MD033: false   # inline HTML dozwolony (tabele, <details>)
-MD041: false   # pierwszy wiersz nie musi być H1 (frontmatter)
+MD013: false   # line length – commands can be long
+MD033: false   # inline HTML allowed (tables, <details>)
+MD041: false   # first line need not be H1 (frontmatter)
 MD024:
-  siblings_only: true   # powtarzalne nagłówki między sekcjami OK
+  siblings_only: true   # repeated headings across sections are OK

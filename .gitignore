@@ -13,7 +13,7 @@ desktop.ini
 node_modules/
 package-lock.json
 
-# Local scratch / sensitive – NIE commituj danych z zaangażowań
+# Local scratch / sensitive – do NOT commit engagement data
 scratch/
 loot/
 *.local.md

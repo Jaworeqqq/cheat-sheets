@@ -1,11 +1,11 @@
 ---
-name: Propozycja ściągawki
-about: Zaproponuj nową ściągawkę lub uzupełnienie
-title: "[cheatsheet] <temat>"
+name: Cheat sheet proposal
+about: Propose a new cheat sheet or an addition
+title: "[cheatsheet] <topic>"
 labels: content
 ---
 
-**Dział:** <red-team / blue-team / devsecops / ...>
-**Temat:**
-**Dlaczego przydatne:**
-**Źródła/referencje:**
+**Section:** <red-team / blue-team / devsecops / ...>
+**Topic:**
+**Why it's useful:**
+**Sources/references:**

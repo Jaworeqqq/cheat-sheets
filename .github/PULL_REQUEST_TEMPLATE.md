@@ -1,13 +1,13 @@
-## Co dodaje / zmienia ten PR?
+## What does this PR add / change?
 
-<!-- Krótki opis -->
+<!-- Short description -->
 
-## Checklista
+## Checklist
 
-- [ ] Użyłem/am szablonu `_templates/cheatsheet-template.md`
-- [ ] Nazwa pliku w `kebab-case`, w odpowiednim dziale
-- [ ] Bloki kodu mają określony język
-- [ ] Techniki ofensywne mają sekcje *Wykrywanie* i *Mitygacja*
-- [ ] Brak realnych sekretów / danych klientów
-- [ ] Dodane źródła
-- [ ] `markdownlint` przechodzi lokalnie
+- [ ] Used the `_templates/cheatsheet-template.md` template
+- [ ] File name in `kebab-case`, in the right section
+- [ ] Code blocks have an explicit language
+- [ ] Offensive techniques include *Detection* and *Mitigation* sections
+- [ ] No real secrets / client data
+- [ ] Sources added
+- [ ] `markdownlint` passes locally

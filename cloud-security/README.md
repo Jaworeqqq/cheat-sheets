@@ -1,16 +1,16 @@
 # ☁️ Cloud Security
 
-Bezpieczeństwo chmur publicznych — enumeracja, misconfiguracje, IAM, detekcja.
+Public cloud security — enumeration, misconfigurations, IAM, detection.
 
-| Podkatalog | Zakres |
-|-----------|--------|
-| [aws](./aws/) | IAM, S3, enumeracja (Pacu, ScoutSuite), GuardDuty, CloudTrail |
+| Subdirectory | Scope |
+|--------------|-------|
+| [aws](./aws/) | IAM, S3, enumeration (Pacu, ScoutSuite), GuardDuty, CloudTrail |
 | [azure](./azure/) | Entra ID, RBAC, Storage, AzureHound, Defender |
 | [gcp](./gcp/) | IAM, GCS, org policy, SCC |
-| [multi-cloud](./multi-cloud/) | CSPM, CNAPP, wzorce cross-cloud |
+| [multi-cloud](./multi-cloud/) | CSPM, CNAPP, cross-cloud patterns |
 
-## Priorytet do uzupełnienia
+## Priority backlog
 - [x] `aws/iam-privesc.md`, `aws/s3-misconfig.md`
 - [x] `azure/entra-enumeration.md`
 - [x] `gcp/gcp-iam-basics.md`
-- [ ] Do zrobienia: `aws/cloudtrail-detection`, `azure/managed-identity-abuse`, `multi-cloud/cspm`
+- [ ] Todo: `aws/cloudtrail-detection`, `azure/managed-identity-abuse`, `multi-cloud/cspm`

@@ -1,23 +1,23 @@
 # 🔵 Blue Team
 
-Detekcja, reagowanie i obrona. Domyślnie mapowane na [MITRE ATT&CK](https://attack.mitre.org/) i [D3FEND](https://d3fend.mitre.org/).
+Detection, response and defense. Mapped by default to [MITRE ATT&CK](https://attack.mitre.org/) and [D3FEND](https://d3fend.mitre.org/).
 
-| Podkatalog | Zakres |
-|-----------|--------|
-| [detection-engineering](./detection-engineering/) | Reguły Sigma, YARA, detekcja jako kod |
-| [incident-response](./incident-response/) | Playbooki, triage, containment, eradication (NIST 800-61) |
-| [threat-hunting](./threat-hunting/) | Hipotezy, hunting queries, TTP hunting |
+| Subdirectory | Scope |
+|--------------|-------|
+| [detection-engineering](./detection-engineering/) | Sigma rules, YARA, detection-as-code |
+| [incident-response](./incident-response/) | Playbooks, triage, containment, eradication (NIST 800-61) |
+| [threat-hunting](./threat-hunting/) | Hypotheses, hunting queries, TTP hunting |
 | [digital-forensics](./digital-forensics/) | DFIR, memory/disk forensics, timeline |
 | [siem](./siem/) | Splunk (SPL), Elastic (KQL/EQL), Sentinel (KQL) |
-| [logging-monitoring](./logging-monitoring/) | Windows Event IDs, Sysmon, auditd, telemetria |
-| [malware-analysis](./malware-analysis/) | Analiza statyczna/dynamiczna, sandbox, unpacking |
-| [hardening](./hardening/) | CIS Benchmarks, baseline OS/usług |
+| [logging-monitoring](./logging-monitoring/) | Windows Event IDs, Sysmon, auditd, telemetry |
+| [malware-analysis](./malware-analysis/) | Static/dynamic analysis, sandbox, unpacking |
+| [hardening](./hardening/) | CIS Benchmarks, OS/service baselines |
 
-## Priorytet do uzupełnienia
+## Priority backlog
 - [x] `logging-monitoring/windows-event-ids.md`
 - [x] `detection-engineering/` – sigma-rules, yara-rules
 - [x] `incident-response/` – ir-process, ir-playbook-ransomware
 - [x] `threat-hunting/threat-hunting.md`
 - [x] `siem/` – splunk-spl, kql-sentinel
 - [x] `digital-forensics/dfir-triage.md`, `malware-analysis/static-dynamic-analysis.md`, `hardening/cis-linux.md`
-- [ ] Do zrobienia: `hardening/cis-windows`, `logging-monitoring/sysmon-config`, więcej playbooków IR (BEC, phishing)
+- [ ] Todo: `hardening/cis-windows`, `logging-monitoring/sysmon-config`, more IR playbooks (BEC, phishing)
