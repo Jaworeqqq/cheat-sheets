@@ -11,7 +11,7 @@ Application security from design to testing.
 
 ## Priority backlog
 - [x] `owasp-top10/` – overview + **A01–A10 all as separate files**
-- [x] `api-security/` – jwt-attacks, oauth-oidc
-- [x] `threat-modeling/stride.md`
-- [x] `secure-coding/` – input-validation, deserialization
-- [ ] Todo: `owasp-top10/api-top10` (API-specific), `threat-modeling/attack-trees`, `secure-coding/ssrf-prevention`
+- [x] `api-security/` – jwt-attacks, oauth-oidc, owasp-api-top10
+- [x] `threat-modeling/` – stride, attack-trees
+- [x] `secure-coding/` – input-validation, deserialization, ssrf-prevention
+- [ ] Todo: `secure-coding/csrf-defense`, `api-security/graphql-security`, `owasp-top10/asvs-overview`
