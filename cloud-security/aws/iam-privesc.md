@@ -1,5 +1,5 @@
 ---
-title: "AWS IAM Privilege Escalation"
+title: "AWS IAM privilege escalation"
 category: "cloud-security"
 tags: ["aws", "iam", "privesc"]
 platform: "aws"
@@ -9,48 +9,48 @@ updated: "2026-07-11"
 author: "core"
 ---
 
-# AWS IAM Privilege Escalation
+# AWS IAM privilege escalation
 
 ## TL;DR
-Nadmiarowe uprawnienia IAM pozwalają eskalować z low-priv do admina. Klasyka: `iam:CreatePolicyVersion`, `iam:PassRole` + uruchomienie usługi, `sts:AssumeRole`. Enumeruj `enumerate-iam` / Pacu / ScoutSuite.
+Excessive IAM permissions let you escalate from low-priv to admin. Classics: `iam:CreatePolicyVersion`, `iam:PassRole` + launching a service, `sts:AssumeRole`. Enumerate with `enumerate-iam` / Pacu / ScoutSuite.
 
-## Enumeracja
+## Enumeration
 ```bash
 aws sts get-caller-identity
-aws iam get-account-authorization-details        # pełny obraz (jeśli wolno)
-# Automat
-pacu   # moduł iam__enum_permissions, iam__privesc_scan
+aws iam get-account-authorization-details        # full picture (if allowed)
+# Automated
+pacu   # modules iam__enum_permissions, iam__privesc_scan
 enumerate-iam --access-key ... --secret-key ...
 ```
 
-## Typowe wektory privesc
+## Common privesc vectors
 ```text
-iam:CreatePolicyVersion            -> nadpisz politykę, daj sobie *:*
-iam:AttachUserPolicy / PutUserPolicy -> podepnij AdministratorAccess
-iam:PassRole + ec2:RunInstances     -> odpal EC2 z rolą admina, weź jej creds z metadata
-iam:PassRole + lambda:CreateFunction -> Lambda z rolą admina
-sts:AssumeRole (zbyt luźny trust)   -> przejmij mocniejszą rolę
-iam:CreateAccessKey (na innego usera) -> klucze admina
-iam:UpdateAssumeRolePolicy          -> dopisz siebie do trust policy roli
+iam:CreatePolicyVersion            -> overwrite a policy, grant yourself *:*
+iam:AttachUserPolicy / PutUserPolicy -> attach AdministratorAccess
+iam:PassRole + ec2:RunInstances     -> launch an EC2 with an admin role, grab its creds from metadata
+iam:PassRole + lambda:CreateFunction -> Lambda with an admin role
+sts:AssumeRole (too loose trust)   -> assume a stronger role
+iam:CreateAccessKey (for another user) -> admin keys
+iam:UpdateAssumeRolePolicy          -> add yourself to a role's trust policy
 ```
 
 ```bash
-# Przykład: CreatePolicyVersion -> admin
+# Example: CreatePolicyVersion -> admin
 aws iam create-policy-version --policy-arn <arn> \
   --policy-document file://admin.json --set-as-default
 ```
 
-## Wykrywanie (Blue Team)
+## Detection (Blue Team)
 ```text
 CloudTrail: CreatePolicyVersion, AttachUserPolicy, CreateAccessKey, UpdateAssumeRolePolicy,
-            PassRole do wrażliwych ról, AssumeRole z nietypowych źródeł.
-GuardDuty: anomalie IAM, credential exfiltration.
+            PassRole to sensitive roles, AssumeRole from unusual sources.
+GuardDuty: IAM anomalies, credential exfiltration.
 ```
 
-## Mitygacja / Hardening
-- Least privilege, **permission boundaries**, SCP na poziomie org.
-- Ogranicz `iam:PassRole` (warunek `iam:PassedToService`), brak `*` na Action.
-- Access Analyzer (nieużywane uprawnienia/publiczny dostęp), MFA, rotacja kluczy → IAM Roles zamiast userów.
+## Mitigation / Hardening
+- Least privilege, **permission boundaries**, org-level SCPs.
+- Restrict `iam:PassRole` (condition `iam:PassedToService`), no `*` on Action.
+- Access Analyzer (unused permissions/public access), MFA, key rotation → IAM Roles instead of users.
 
-## Źródła
+## Sources
 - [Pacu](https://github.com/RhinoSecurityLabs/pacu) · [Rhino – AWS privesc methods](https://rhinosecuritylabs.com/aws/aws-privilege-escalation-methods-mitigation/)

@@ -1,5 +1,5 @@
 ---
-title: "GCP IAM – podstawy i privesc"
+title: "GCP IAM – basics and privesc"
 category: "cloud-security"
 tags: ["gcp", "iam", "privesc"]
 platform: "gcp"
@@ -12,45 +12,45 @@ author: "core"
 # GCP IAM
 
 ## TL;DR
-GCP: hierarchia Organization → Folder → Project → Resource; role dziedziczą w dół. Privesc często przez service accounts (impersonacja, actAs, tworzenie kluczy).
+GCP: hierarchy Organization → Folder → Project → Resource; roles inherit downward. Privesc often via service accounts (impersonation, actAs, key creation).
 
-## Enumeracja
+## Enumeration
 ```bash
 gcloud auth list
 gcloud config list
 gcloud projects list
 gcloud projects get-iam-policy PROJECT_ID
-# Co mogę? (testowanie uprawnień)
+# What can I do? (permission testing)
 gcloud iam list-testable-permissions //cloudresourcemanager.googleapis.com/projects/PROJECT_ID
-# Automat
+# Automated
 # GCPBucketBrute, ScoutSuite --provider gcp
 ```
 
-## Typowe wektory privesc
+## Common privesc vectors
 ```text
-iam.serviceAccounts.getAccessToken / actAs -> impersonuj mocniejsze SA
-iam.serviceAccountKeys.create              -> stwórz klucz SA -> długotrwały dostęp
+iam.serviceAccounts.getAccessToken / actAs -> impersonate stronger SAs
+iam.serviceAccountKeys.create              -> create an SA key -> long-lived access
 iam.serviceAccounts.implicitDelegation
-deploymentmanager / cloudfunctions.create + actAs SA -> uruchom kod jako SA
-compute.instances.create + actAs           -> VM z SA -> token z metadata
-setIamPolicy na projekcie                   -> nadaj sobie owner
+deploymentmanager / cloudfunctions.create + actAs SA -> run code as an SA
+compute.instances.create + actAs           -> VM with an SA -> token from metadata
+setIamPolicy on the project                 -> grant yourself owner
 ```
 
 ```bash
-# Impersonacja SA (jeśli masz getAccessToken)
+# SA impersonation (if you have getAccessToken)
 gcloud --impersonate-service-account=admin-sa@proj.iam.gserviceaccount.com <cmd>
-# Token z metadata (na VM)
+# Token from metadata (on a VM)
 curl -H "Metadata-Flavor: Google" \
   http://metadata.google.internal/computeMetadata/v1/instance/service-accounts/default/token
 ```
 
-## Wykrywanie (Blue Team)
+## Detection (Blue Team)
 - Cloud Audit Logs: `SetIamPolicy`, `serviceAccountKeys.create`, `GenerateAccessToken`.
-- SCC (Security Command Center): nadmiarowe role, klucze SA, publiczne zasoby.
+- SCC (Security Command Center): excessive roles, SA keys, public resources.
 
-## Mitygacja / Hardening
-- Least privilege, zakaz `Owner/Editor` dla appek, org policy: blokada tworzenia kluczy SA.
-- Workload Identity zamiast kluczy SA, VPC Service Controls, ograniczenie `actAs`.
+## Mitigation / Hardening
+- Least privilege, no `Owner/Editor` for apps, org policy: block SA key creation.
+- Workload Identity instead of SA keys, VPC Service Controls, restrict `actAs`.
 
-## Źródła
+## Sources
 - [GCP IAM privesc – Rhino](https://rhinosecuritylabs.com/gcp/privilege-escalation-google-cloud-platform-part-1/) · [ScoutSuite](https://github.com/nccgroup/ScoutSuite)

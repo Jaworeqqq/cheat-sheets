@@ -1,5 +1,5 @@
 ---
-title: "Threat Modeling – STRIDE"
+title: "Threat modeling – STRIDE"
 category: "appsec"
 tags: ["threat-modeling", "stride", "design"]
 platform: "agnostic"
@@ -9,34 +9,34 @@ updated: "2026-07-11"
 author: "core"
 ---
 
-# Threat Modeling – STRIDE
+# Threat modeling – STRIDE
 
 ## TL;DR
-Strukturalne szukanie zagrożeń na etapie projektu. STRIDE = 6 kategorii zagrożeń, każda z przeciwstawną własnością bezpieczeństwa. Odpowiada na 4 pytania: co budujemy, co może pójść źle, co z tym zrobimy, czy dobrze zrobiliśmy.
+A structured way to find threats at design time. STRIDE = 6 threat categories, each opposing a security property. Answers 4 questions: what are we building, what can go wrong, what do we do about it, did we do a good job.
 
 ## STRIDE
-| Zagrożenie | Narusza | Przykład | Kontrola |
-|-----------|---------|----------|----------|
-| **S**poofing | Authentication | podszycie pod usera/usługę | MFA, mutual TLS, silne tożsamości |
-| **T**ampering | Integrity | modyfikacja danych/kodu | podpisy, HMAC, walidacja, WORM |
-| **R**epudiation | Non-repudiation | zaprzeczenie akcji | logi audytowe, timestamping |
-| **I**nformation Disclosure | Confidentiality | wyciek danych | szyfrowanie, least privilege |
-| **D**enial of Service | Availability | wyczerpanie zasobów | rate limit, quotas, autoscaling |
+| Threat | Violates | Example | Control |
+|--------|----------|---------|---------|
+| **S**poofing | Authentication | impersonating a user/service | MFA, mutual TLS, strong identities |
+| **T**ampering | Integrity | modifying data/code | signing, HMAC, validation, WORM |
+| **R**epudiation | Non-repudiation | denying an action | audit logs, timestamping |
+| **I**nformation Disclosure | Confidentiality | data leak | encryption, least privilege |
+| **D**enial of Service | Availability | resource exhaustion | rate limit, quotas, autoscaling |
 | **E**levation of Privilege | Authorization | privesc | authz, sandboxing, least priv |
 
-## Proces
+## Process
 ```text
-1. Diagram (DFD)  – procesy, data stores, external entities, data flows, trust boundaries
-2. Enumeracja     – dla każdego elementu/przepływu przejdź STRIDE
-3. Ocena ryzyka   – prawdopodobieństwo x wpływ (lub DREAD)
-4. Mitygacje      – kontrola per zagrożenie; zaakceptuj/przenieś/zredukuj
-5. Weryfikacja    – testy potwierdzające kontrole
+1. Diagram (DFD)  – processes, data stores, external entities, data flows, trust boundaries
+2. Enumeration    – walk STRIDE for each element/flow
+3. Risk rating    – likelihood x impact (or DREAD)
+4. Mitigations    – a control per threat; accept/transfer/reduce
+5. Verification   – tests confirming the controls
 ```
 
-## Wskazówki
-- Skup uwagę na **trust boundaries** (tam żyją zagrożenia).
-- Rób wcześnie (design) i aktualizuj przy zmianach architektury.
-- Narzędzia: Microsoft Threat Modeling Tool, OWASP Threat Dragon, pytania „elevation of privilege" (karty).
+## Tips
+- Focus attention on **trust boundaries** (that's where threats live).
+- Do it early (design) and update on architecture changes.
+- Tools: Microsoft Threat Modeling Tool, OWASP Threat Dragon, "elevation of privilege" question cards.
 
-## Źródła
-- [OWASP Threat Modeling](https://owasp.org/www-community/Threat_Modeling) · [Threat Dragon](https://owasp.org/www-project-threat-dragon/) · książka *Threat Modeling* (Shostack)
+## Sources
+- [OWASP Threat Modeling](https://owasp.org/www-community/Threat_Modeling) · [Threat Dragon](https://owasp.org/www-project-threat-dragon/) · *Threat Modeling* (Shostack)
