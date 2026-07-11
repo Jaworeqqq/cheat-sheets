@@ -20,4 +20,5 @@ Security embedded into the pipeline and infrastructure — "shift left".
 - [x] `secrets-management/secrets-detection.md`
 - [x] `sast-dast-sca/sast-dast-sca.md`, `supply-chain/sbom-cosign.md`
 - [x] `ci-cd/gitlab-ci-hardening.md`, `kubernetes/network-policies.md`, `containers/falco-runtime.md`
-- [ ] Todo: `secrets-management/vault-patterns`, `iac/opa-conftest`, `supply-chain/dependency-confusion`
+- [x] `secrets-management/vault-patterns.md`, `iac/opa-conftest.md`, `supply-chain/dependency-confusion.md`
+- [ ] Todo: `containers/image-scanning-deep`, `kubernetes/rbac-deep`, `ci-cd/artifact-signing-flow`
