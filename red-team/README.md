@@ -26,4 +26,5 @@ Offensive techniques organized by the [Cyber Kill Chain](https://www.lockheedmar
 - [x] `privilege-escalation/` – linux (linux-privesc, suid-gtfobins), windows (windows-privesc, token-impersonation)
 - [x] `web/` – sqli, xss, ssrf, file-upload
 - [x] `command-and-control/c2-matrix.md`, `exfiltration/exfil-channels.md`
-- [ ] Todo: `recon/nmap` → NSE deep-dive, `wireless/ble`, `mobile/ios`, more `tools/` (impacket, mimikatz)
+- [x] `recon/nmap-nse.md`, `wireless/bluetooth-ble.md`, `mobile/ios-basics.md`, `tools/` (impacket, mimikatz)
+- [ ] Todo: `active-directory/dcsync`, `active-directory/delegation`, `web/ssti`, `recon/smb-enum`
