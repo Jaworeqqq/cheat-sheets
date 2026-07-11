@@ -14,8 +14,10 @@ Detekcja, reagowanie i obrona. Domyślnie mapowane na [MITRE ATT&CK](https://att
 | [hardening](./hardening/) | CIS Benchmarks, baseline OS/usług |
 
 ## Priorytet do uzupełnienia
-- [ ] `logging-monitoring/windows-event-ids.md`
-- [ ] `detection-engineering/sigma-rules.md`
-- [ ] `incident-response/ir-playbook-ransomware.md`
-- [ ] `siem/splunk-spl.md`
-- [ ] `hardening/cis-linux.md`
+- [x] `logging-monitoring/windows-event-ids.md`
+- [x] `detection-engineering/` – sigma-rules, yara-rules
+- [x] `incident-response/` – ir-process, ir-playbook-ransomware
+- [x] `threat-hunting/threat-hunting.md`
+- [x] `siem/` – splunk-spl, kql-sentinel
+- [x] `digital-forensics/dfir-triage.md`, `malware-analysis/static-dynamic-analysis.md`, `hardening/cis-linux.md`
+- [ ] Do zrobienia: `hardening/cis-windows`, `logging-monitoring/sysmon-config`, więcej playbooków IR (BEC, phishing)

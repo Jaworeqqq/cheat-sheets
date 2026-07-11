@@ -10,8 +10,7 @@ Frameworki, kontrole, audyt i zarządzanie ryzykiem.
 | [risk-management](./risk-management/) | Ocena ryzyka, macierze, rejestr ryzyk, KRI |
 
 ## Priorytet do uzupełnienia
-- [ ] `frameworks/iso27001-annex-a.md`
-- [ ] `frameworks/nist-csf.md`
-- [ ] `frameworks/pci-dss-v4.md`
-- [ ] `audit/evidence-checklist.md`
-- [ ] `risk-management/risk-matrix.md`
+- [x] `frameworks/` – frameworks-overview, iso27001-annex-a, nist-csf, pci-dss-v4, gdpr-rodo
+- [x] `audit/evidence-checklist.md`
+- [x] `risk-management/risk-assessment.md`
+- [ ] Do zrobienia: `frameworks/soc2`, `policies/` (szablony access-control, IR, BCP), `frameworks/dora-nis2`

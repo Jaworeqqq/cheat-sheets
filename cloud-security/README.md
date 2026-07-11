@@ -10,7 +10,7 @@ Bezpieczeństwo chmur publicznych — enumeracja, misconfiguracje, IAM, detekcja
 | [multi-cloud](./multi-cloud/) | CSPM, CNAPP, wzorce cross-cloud |
 
 ## Priorytet do uzupełnienia
-- [ ] `aws/iam-privesc.md`
-- [ ] `aws/s3-misconfig.md`
-- [ ] `azure/entra-enumeration.md`
-- [ ] `gcp/iam-basics.md`
+- [x] `aws/iam-privesc.md`, `aws/s3-misconfig.md`
+- [x] `azure/entra-enumeration.md`
+- [x] `gcp/gcp-iam-basics.md`
+- [ ] Do zrobienia: `aws/cloudtrail-detection`, `azure/managed-identity-abuse`, `multi-cloud/cspm`

@@ -21,8 +21,9 @@ Techniki ofensywne uporządkowane wg [Cyber Kill Chain](https://www.lockheedmart
 | [tools](./tools/) | Ściągawki narzędzi (nmap, Burp, CrackMapExec...) | — |
 
 ## Priorytet do uzupełnienia
-- [ ] `recon/nmap.md`
-- [ ] `active-directory/kerberoasting.md`
-- [ ] `privilege-escalation/linux/suid-gtfobins.md`
-- [ ] `web/sqli.md`
-- [ ] `command-and-control/c2-matrix.md`
+- [x] `recon/nmap.md`, `recon/subdomain-enum.md`, `recon/dns-recon.md`
+- [x] `active-directory/` – kerberoasting, asreproast, bloodhound, adcs-esc
+- [x] `privilege-escalation/` – linux (linux-privesc, suid-gtfobins), windows (windows-privesc, token-impersonation)
+- [x] `web/` – sqli, xss, ssrf, file-upload
+- [x] `command-and-control/c2-matrix.md`, `exfiltration/exfil-channels.md`
+- [ ] Do zrobienia: `recon/nmap` → NSE deep-dive, `wireless/ble`, `mobile/ios`, więcej `tools/` (impacket, mimikatz)

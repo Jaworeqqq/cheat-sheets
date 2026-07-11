@@ -13,8 +13,10 @@ Bezpieczeństwo wpięte w pipeline i infrastrukturę — "shift left".
 | [supply-chain](./supply-chain/) | SBOM, SLSA, sigstore/cosign, provenance |
 
 ## Priorytet do uzupełnienia
-- [ ] `ci-cd/github-actions-hardening.md`
-- [ ] `containers/docker-hardening.md`
-- [ ] `kubernetes/k8s-rbac.md`
-- [ ] `secrets-management/gitleaks.md`
-- [ ] `supply-chain/sbom-cosign.md`
+- [x] `ci-cd/github-actions-hardening.md`
+- [x] `containers/docker-hardening.md`
+- [x] `kubernetes/k8s-security.md`
+- [x] `iac/iac-scanning.md`
+- [x] `secrets-management/secrets-detection.md`
+- [x] `sast-dast-sca/sast-dast-sca.md`, `supply-chain/sbom-cosign.md`
+- [ ] Do zrobienia: `ci-cd/gitlab-ci`, `kubernetes/network-policies` (głębiej), `containers/falco-rules`

@@ -23,6 +23,20 @@ Uporządkowana, praktyczna kolekcja ściągawek z zakresu cyberbezpieczeństwa �
 
 ---
 
+## 📈 Stan wypełnienia
+
+Repo ma wypełnione ściągawki-fundamenty w każdym dziale (~45 dokumentów) plus szkielet pod resztę. Każdy `README.md` działu ma listę „priorytet do uzupełnienia" (odhaczone = gotowe).
+
+| Dział | Gotowe ściągawki (przykłady) |
+|-------|------------------------------|
+| red-team | nmap, subdomain-enum, phishing, reverse-shells, linux/windows privesc, kerberoasting, asreproast, bloodhound, adcs-esc, pass-the-hash, C2, SQLi, XSS, SSRF, wifi, burp, netexec |
+| blue-team | windows-event-ids, sigma, yara, IR (proces + ransomware), threat-hunting, splunk-spl, kql, dfir-triage, malware-analysis, cis-linux |
+| devsecops | actions-hardening, docker, k8s-security, iac-scanning, secrets-detection, sast-dast-sca, sbom-cosign |
+| cloud-security | aws iam/s3, entra-enumeration, gcp-iam |
+| appsec | owasp-top10, broken-access-control, jwt, stride, input-validation |
+| compliance | frameworks-overview, iso27001, nist-csf, pci-dss, gdpr, evidence-checklist, risk-assessment |
+| osint / networking / cryptography | google-dorking, recon-frameworks, common-ports, ssh-tunneling, password-cracking, openssl |
+
 ## 🗂️ Jak korzystać
 
 Każdy dział ma własny `README.md` (spis podtematów). Każda ściągawka to jeden plik `.md` w spójnym formacie — patrz [`_templates/cheatsheet-template.md`](./_templates/cheatsheet-template.md).
