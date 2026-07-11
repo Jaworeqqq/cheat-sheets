@@ -1,5 +1,5 @@
 ---
-title: "Threat Hunting – metodyka"
+title: "Threat Hunting – methodology"
 category: "blue-team"
 tags: ["threat-hunting", "detection"]
 platform: "agnostic"
@@ -12,37 +12,37 @@ author: "core"
 # Threat Hunting
 
 ## TL;DR
-Proaktywne szukanie zagrożeń, których nie złapały alerty. Napędzane hipotezami opartymi o TTP (ATT&CK), nie o IOC. Cel: znaleźć + zamienić w trwałą detekcję.
+Proactively searching for threats that alerts didn't catch. Driven by hypotheses based on TTPs (ATT&CK), not IOCs. Goal: find + turn into a durable detection.
 
-## Cykl (hypothesis-driven)
+## Cycle (hypothesis-driven)
 ```text
-1. Hipoteza      – "Atakujący używa WMI do lateral movement"
-2. Dane          – jakie logi to pokażą? (Sysmon 1/3, WMI-Activity 5857)
-3. Hunt          – zapytania, baselining, odchylenia od normy
-4. Wynik         – potwierdź/odrzuć; jeśli znaleziono -> IR
-5. Operacjonalizacja – zamień w regułę Sigma/alert
+1. Hypothesis    – "The attacker uses WMI for lateral movement"
+2. Data          – which logs will show it? (Sysmon 1/3, WMI-Activity 5857)
+3. Hunt          – queries, baselining, deviations from the norm
+4. Result        – confirm/reject; if found -> IR
+5. Operationalize – turn into a Sigma rule/alert
 ```
 
-## Przykładowe hipotezy → sygnały
+## Example hypotheses → signals
 ```text
-LOLBins            -> certutil/mshta/regsvr32 z nietypowych rodziców
-Lateral (WMI)      -> wmiprvse.exe -> proces potomny (cmd/powershell)
-C2 beaconing       -> regularne odstępy połączeń, JA3, młode domeny
-Persistence        -> nowe Run keys / tasks / usługi poza baseline
-Cred dumping       -> dostęp do lsass, kopie NTDS/SAM
+LOLBins            -> certutil/mshta/regsvr32 from unusual parents
+Lateral (WMI)      -> wmiprvse.exe -> child process (cmd/powershell)
+C2 beaconing       -> regular connection intervals, JA3, young domains
+Persistence        -> new Run keys / tasks / services outside baseline
+Cred dumping       -> lsass access, NTDS/SAM copies
 ```
 
-## Przykład (Splunk – rzadkie procesy potomne)
+## Example (Splunk – rare child processes)
 ```sql
 index=sysmon EventCode=1
 | stats count by ParentImage, Image
-| sort count asc          // rzadkie kombinacje = warte uwagi
+| sort count asc          // rare combinations = worth attention
 ```
 
-## Techniki analityczne
-- **Stack counting** (frequency analysis) — rzadkie = podejrzane.
-- **Baselining** — co jest normą w środowisku?
-- **Grouping / clustering** po hostach, użytkownikach, czasie.
+## Analytical techniques
+- **Stack counting** (frequency analysis) — rare = suspicious.
+- **Baselining** — what is normal in the environment?
+- **Grouping / clustering** by host, user, time.
 
-## Źródła
+## Sources
 - [MITRE ATT&CK](https://attack.mitre.org/) · [Atomic Red Team](https://github.com/redcanaryco/atomic-red-team) · [ThreatHunting Project](https://www.threathunting.net/)

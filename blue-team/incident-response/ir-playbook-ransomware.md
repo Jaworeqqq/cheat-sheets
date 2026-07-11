@@ -12,46 +12,46 @@ author: "core"
 # IR Playbook – Ransomware
 
 ## TL;DR
-Faza wg NIST 800-61: Przygotowanie → Wykrycie/Analiza → Zawężenie/Eradykacja/Odtworzenie → Wnioski. Przy ransomware: **izoluj szybko, nie płać pochopnie, zabezpiecz dowody**.
+Phases per NIST 800-61: Preparation → Detection/Analysis → Containment/Eradication/Recovery → Lessons Learned. For ransomware: **isolate fast, don't pay hastily, preserve evidence**.
 
-## 1. Wykrycie i triage
+## 1. Detection and triage
 ```text
-Sygnały: masowe zmiany plików (.locked), note ransomowy, alert EDR, wyłączony backup/AV,
-         nietypowe logowania, spike CPU (szyfrowanie).
-Pierwsze pytania: pacjent zero? wektor wejścia? zasięg? czy trwa aktywne szyfrowanie?
+Signals: mass file changes (.locked), ransom note, EDR alert, backup/AV disabled,
+         unusual logons, CPU spike (encryption).
+First questions: patient zero? entry vector? scope? is encryption still active?
 ```
 
-## 2. Containment (zawężenie)
+## 2. Containment
 ```text
-- Izoluj zainfekowane hosty (odłącz sieć, NIE wyłączaj — zachowaj RAM na forensics).
-- Zablokuj konta skompromitowane, zresetuj hasła (w tym krbtgt x2 jeśli AD).
-- Odetnij kanały C2 (firewall/DNS sinkhole), wyłącz zdalny dostęp.
-- Chroń kopie zapasowe (offline/immutable) przed skasowaniem.
+- Isolate infected hosts (disconnect the network, do NOT power off — preserve RAM for forensics).
+- Disable compromised accounts, reset passwords (including krbtgt x2 if AD).
+- Cut C2 channels (firewall/DNS sinkhole), disable remote access.
+- Protect backups (offline/immutable) from deletion.
 ```
 
-## 3. Eradykacja i odtworzenie
+## 3. Eradication and recovery
 ```text
-- Ustal i usuń mechanizmy persystencji, załataj wektor wejścia.
-- Odtwarzaj z czystych, zweryfikowanych backupów (sprawdź czy nie zainfekowane).
-- Odbuduj z zaufanych obrazów; nie ufaj „wyczyszczonym" hostom przy głębokim compromise.
+- Identify and remove persistence mechanisms, patch the entry vector.
+- Restore from clean, verified backups (check they aren't infected).
+- Rebuild from trusted images; don't trust "cleaned" hosts on deep compromise.
 ```
 
-## 4. Po incydencie
+## 4. Post-incident
 ```text
-- Timeline, root cause, lessons learned, aktualizacja detekcji (Sigma/EDR).
-- Zgłoszenia regulacyjne (GDPR 72h jeśli dane osobowe), komunikacja.
+- Timeline, root cause, lessons learned, detection updates (Sigma/EDR).
+- Regulatory reporting (GDPR 72h if personal data), communications.
 ```
 
-## Zbieranie dowodów (przed czyszczeniem)
+## Evidence collection (before cleaning)
 ```bash
-# Pamięć + dysk zanim zmodyfikujesz hosta
-# (winpmem/DumpIt dla RAM; obraz dysku dd/FTK)
-# Zachowaj: logi, próbki, notę ransomową, IOC
+# Memory + disk before you modify the host
+# (winpmem/DumpIt for RAM; disk image dd/FTK)
+# Preserve: logs, samples, ransom note, IOCs
 ```
 
-## Nie / Tak
-- ❌ Nie wyłączaj hosta odruchowo (utrata RAM), nie płać bez analizy prawnej/biznesowej.
-- ✅ Izoluj, zbierz dowody, angażuj prawników/ubezpieczyciela/organy wg polityki.
+## Don't / Do
+- ❌ Don't reflexively power off the host (RAM loss), don't pay without legal/business analysis.
+- ✅ Isolate, collect evidence, engage legal/insurer/authorities per policy.
 
-## Źródła
+## Sources
 - [NIST SP 800-61r2](https://csrc.nist.gov/pubs/sp/800/61/r2/final) · [CISA #StopRansomware](https://www.cisa.gov/stopransomware)

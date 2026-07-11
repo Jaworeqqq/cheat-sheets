@@ -1,5 +1,5 @@
 ---
-title: "YARA – reguły dla malware"
+title: "YARA – rules for malware"
 category: "blue-team"
 tags: ["detection-engineering", "yara", "malware"]
 platform: "agnostic"
@@ -12,15 +12,15 @@ author: "core"
 # YARA
 
 ## TL;DR
-YARA klasyfikuje pliki wg wzorców (stringi, bajty, warunki). Używane do wykrywania malware na dysku/w pamięci i threat huntingu.
+YARA classifies files by patterns (strings, bytes, conditions). Used to detect malware on disk/in memory and for threat hunting.
 
-## Struktura
+## Structure
 ```yara
 rule SuspiciousWebshell_PHP
 {
     meta:
         author = "core"
-        description = "Prosty PHP webshell"
+        description = "Simple PHP webshell"
         reference = "internal"
         severity = "high"
     strings:
@@ -32,21 +32,21 @@ rule SuspiciousWebshell_PHP
 }
 ```
 
-## Uruchamianie
+## Running
 ```bash
-yara -r rules.yar /var/www/          # rekurencyjnie po katalogu
-yara -s rule.yar sample.bin          # pokaż dopasowane stringi
+yara -r rules.yar /var/www/          # recursively over a directory
+yara -s rule.yar sample.bin          # show matched strings
 yara rule.yar -p 4 --scan-list files.txt
-# skan pamięci procesu
+# scan process memory
 yara rule.yar --scan-list <(ls /proc/<pid>/)
 ```
 
-## Dobre praktyki
+## Best practices
 ```text
-- Łącz stringi + warunki (filesize, magic) by ograniczyć FP.
-- Używaj modułu pe/elf/math (entropia) dla pakowanych próbek.
-- Nie opieraj się na 1 stringu — łatwo obejść.
+- Combine strings + conditions (filesize, magic) to reduce FPs.
+- Use the pe/elf/math (entropy) module for packed samples.
+- Don't rely on a single string — easy to bypass.
 ```
 
-## Źródła
+## Sources
 - [YARA docs](https://yara.readthedocs.io/) · [YARA-Rules repo](https://github.com/Yara-Rules/rules)

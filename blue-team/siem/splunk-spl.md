@@ -1,5 +1,5 @@
 ---
-title: "Splunk SPL – ściągawka"
+title: "Splunk SPL – cheat sheet"
 category: "blue-team"
 tags: ["siem", "splunk", "spl"]
 platform: "agnostic"
@@ -12,9 +12,9 @@ author: "core"
 # Splunk SPL
 
 ## TL;DR
-Search Processing Language: `search → transform → visualize`. Potok `|` łączy komendy. Kluczowe: `stats`, `eval`, `where`, `rex`, `lookup`, `tstats`.
+Search Processing Language: `search → transform → visualize`. The `|` pipe chains commands. Key ones: `stats`, `eval`, `where`, `rex`, `lookup`, `tstats`.
 
-## Podstawy
+## Basics
 ```sql
 index=windows EventCode=4625 host=DC01
 | stats count by user, src_ip
@@ -22,40 +22,40 @@ index=windows EventCode=4625 host=DC01
 | sort -count
 ```
 
-## Częste komendy
+## Common commands
 ```sql
--- Agregacja
+-- Aggregation
 ... | stats count, dc(user) AS unique_users by src_ip
 -- Timechart
 ... | timechart span=1h count by EventCode
--- Ekstrakcja pola regexem
+-- Field extraction with regex
 ... | rex field=_raw "user=(?<username>\w+)"
--- Warunki / nowe pola
+-- Conditions / new fields
 ... | eval is_admin=if(match(user,"adm_"),"yes","no")
--- Wzbogacenie z lookup
+-- Enrichment with a lookup
 ... | lookup asset_owner host OUTPUT owner
--- Wykluczanie
+-- Exclusion
 ... | search NOT user IN ("svc_backup","healthcheck")
 ```
 
-## Detekcje – przykłady
+## Detections – examples
 ```sql
--- Password spray (wiele kont, jedno IP)
+-- Password spray (many accounts, one IP)
 index=win EventCode=4625
 | stats dc(user) AS accts by src_ip, bin(_time, 1h)
 | where accts > 10
 
--- Rzadkie procesy potomne (stack counting)
+-- Rare child processes (stack counting)
 index=sysmon EventCode=1
 | stats count by ParentImage, Image | sort count asc
 
--- Czyszczenie logów
+-- Log clearing
 index=win EventCode=1102
 ```
 
-## Wydajność
-- `tstats` na indeksowanych polach = dużo szybsze niż `stats` na surowych.
-- Zawężaj czas i `index=` na starcie; filtruj wcześnie w potoku.
+## Performance
+- `tstats` on indexed fields = much faster than `stats` on raw events.
+- Narrow the time range and `index=` up front; filter early in the pipeline.
 
-## Źródła
+## Sources
 - [Splunk Search Reference](https://docs.splunk.com/Documentation/Splunk/latest/SearchReference)

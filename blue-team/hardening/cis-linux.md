@@ -1,5 +1,5 @@
 ---
-title: "Hardening Linux (CIS)"
+title: "Linux hardening (CIS)"
 category: "blue-team"
 tags: ["hardening", "linux", "cis"]
 platform: "linux"
@@ -9,33 +9,33 @@ updated: "2026-07-11"
 author: "core"
 ---
 
-# Hardening Linux (CIS baseline)
+# Linux hardening (CIS baseline)
 
 ## TL;DR
-Redukcja powierzchni ataku wg CIS Benchmark: minimalizacja usług, uprawnienia, audyt, SSH, kernel params. Automatyzuj (Ansible/lynis) i weryfikuj.
+Reduce the attack surface per the CIS Benchmark: minimize services, permissions, auditing, SSH, kernel params. Automate (Ansible/lynis) and verify.
 
-## Szybki audyt
+## Quick audit
 ```bash
-lynis audit system            # ocena + rekomendacje
-# lub oficjalny CIS-CAT
+lynis audit system            # assessment + recommendations
+# or the official CIS-CAT
 ```
 
-## Kluczowe obszary
+## Key areas
 ```bash
-# Konta i hasła
-awk -F: '($3==0){print}' /etc/passwd     # tylko root ma uid 0?
-chage --list <user>                       # polityka wygasania
+# Accounts and passwords
+awk -F: '($3==0){print}' /etc/passwd     # only root has uid 0?
+chage --list <user>                       # expiration policy
 
 # SSH (/etc/ssh/sshd_config)
 PermitRootLogin no
-PasswordAuthentication no        # tylko klucze
+PasswordAuthentication no        # keys only
 Protocol 2
 MaxAuthTries 4
 AllowUsers ...                   # allow-list
 
 # Firewall
 ufw default deny incoming; ufw enable
-# lub nftables/firewalld – domyślnie deny
+# or nftables/firewalld – deny by default
 
 # Kernel (sysctl)
 net.ipv4.conf.all.rp_filter=1
@@ -43,21 +43,21 @@ net.ipv4.tcp_syncookies=1
 kernel.randomize_va_space=2      # ASLR
 fs.suid_dumpable=0
 
-# Montowania
+# Mounts
 /tmp, /var/tmp  -> nodev,nosuid,noexec
 ```
 
-## Audyt i logi
+## Auditing and logs
 ```bash
-# auditd – rejestruj zmiany wrażliwych plików
+# auditd – log changes to sensitive files
 auditctl -w /etc/passwd -p wa -k identity
 auditctl -w /etc/sudoers -p wa -k scope
 systemctl enable --now auditd
 ```
 
-## Weryfikacja / utrzymanie
-- Baseline (AIDE) na kluczowe pliki, regularne `lynis`, patch management.
-- IaC (Ansible role: dev-sec.linux-baseline) zamiast ręcznie.
+## Verification / maintenance
+- Baseline (AIDE) on key files, regular `lynis`, patch management.
+- IaC (Ansible role: dev-sec.linux-baseline) instead of manual work.
 
-## Źródła
+## Sources
 - [CIS Benchmarks](https://www.cisecurity.org/cis-benchmarks) · [Lynis](https://cisofy.com/lynis/) · [dev-sec hardening](https://github.com/dev-sec)
