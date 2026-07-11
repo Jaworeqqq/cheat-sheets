@@ -7,5 +7,6 @@ Protocols, traffic analysis, pivoting and tunneling.
 - [ssh-tunneling](./ssh-tunneling.md) — SSH tunneling & pivoting (chisel, ligolo-ng)
 - [tcpdump](./tcpdump.md) — CLI packet capture & BPF filters
 - [wireshark-filters](./wireshark-filters.md) — display filters & analysis workflows
+- [proxychains-pivoting](./proxychains-pivoting.md) — pivoting through SOCKS with proxychains
 
-Planned: `proxychains-pivoting.md`, `dns.md`, `common-protocols.md`.
+Planned: `dns.md`, `common-protocols.md`.

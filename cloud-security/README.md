@@ -15,4 +15,5 @@ Public cloud security — enumeration, misconfigurations, IAM, detection.
 - [x] `gcp/gcp-iam-basics.md`
 - [x] `aws/cloudtrail-detection.md`, `azure/managed-identity-abuse.md`, `multi-cloud/cspm.md`
 - [x] `aws/lambda-privesc.md`, `gcp/gcs-misconfig.md`, `azure/storage-sas-abuse.md`
-- [ ] Todo: `aws/eks-security`, `gcp/gke-security`, `multi-cloud/ciem`
+- [x] `aws/eks-security.md`, `gcp/gke-security.md`, `multi-cloud/ciem.md`
+- [ ] Todo: `aws/vpc-network-security`, `azure/conditional-access`, `gcp/vpc-service-controls`

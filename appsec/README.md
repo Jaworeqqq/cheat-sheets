@@ -13,5 +13,6 @@ Application security from design to testing.
 - [x] `owasp-top10/` – overview + **A01–A10 all as separate files**
 - [x] `api-security/` – jwt-attacks, oauth-oidc, owasp-api-top10
 - [x] `threat-modeling/` – stride, attack-trees
-- [x] `secure-coding/` – input-validation, deserialization, ssrf-prevention
-- [ ] Todo: `secure-coding/csrf-defense`, `api-security/graphql-security`, `owasp-top10/asvs-overview`
+- [x] `secure-coding/` – input-validation, deserialization, ssrf-prevention, csrf-defense
+- [x] `api-security/graphql-security.md`, `owasp-top10/asvs-overview.md`
+- [ ] Todo: `secure-coding/secure-headers`, `api-security/rate-limiting`, `owasp-top10/mass-assignment`
