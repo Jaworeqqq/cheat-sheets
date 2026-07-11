@@ -1,0 +1,7 @@
+# Reguły markdownlint – złagodzone pod ściągawki
+default: true
+MD013: false   # długość linii – komendy bywają długie
+MD033: false   # inline HTML dozwolony (tabele, <details>)
+MD041: false   # pierwszy wiersz nie musi być H1 (frontmatter)
+MD024:
+  siblings_only: true   # powtarzalne nagłówki między sekcjami OK
