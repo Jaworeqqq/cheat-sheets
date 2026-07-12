@@ -30,4 +30,5 @@ Offensive techniques organized by the [Cyber Kill Chain](https://www.lockheedmar
 - [x] `active-directory/dcsync.md`, `active-directory/delegation.md`, `web/ssti.md`, `recon/smb-enum.md`
 - [x] `web/xxe.md`, `web/command-injection.md`, `initial-access/exposed-services.md`, `persistence/golden-ticket.md`
 - [x] `web/idor.md`, `active-directory/ntlm-relay.md`, `exploitation/deserialization-attacks.md`
-- [ ] Todo: `active-directory/dpapi`, `web/graphql-attacks`, `lateral-movement/rdp-hijacking`
+- [x] `active-directory/dpapi.md`, `web/graphql-attacks.md`, `lateral-movement/rdp-hijacking.md`
+- [ ] Todo: `active-directory/shadow-credentials`, `web/request-smuggling`, `tools/sliver`
