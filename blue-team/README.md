@@ -26,4 +26,5 @@ Detection, response and defense. Mapped by default to [MITRE ATT&CK](https://att
 - [x] `malware-analysis/memory-forensics.md`, `hardening/macos.md`, `digital-forensics/linux-forensics.md`
 - [x] `logging-monitoring/linux-auditd.md`, `threat-hunting/dns-anomaly-hunt.md`, `incident-response/cloud-ir-aws.md`
 - [x] `detection-engineering/mitre-attack-mapping.md`, `siem/wazuh.md`, `threat-hunting/persistence-hunt.md`
-- [ ] Todo: `malware-analysis/sandboxing`, `incident-response/tabletop-exercises`, `digital-forensics/browser-forensics`
+- [x] `malware-analysis/sandboxing.md`, `incident-response/tabletop-exercises.md`, `digital-forensics/browser-forensics.md`
+- [ ] Todo: `detection-engineering/velociraptor`, `hardening/network-device-hardening`, `threat-hunting/beaconing-detection`
