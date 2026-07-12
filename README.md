@@ -59,6 +59,14 @@ find red-team -name "*.md" -not -name "README.md"
 - **Code blocks:** always with an explicit language (```bash, ```powershell, ```yaml).
 - Every offensive technique **should** carry a *Detection* and *Mitigation* section (Red→Blue bridge).
 
+## 🔌 MCP server
+
+An [MCP](https://modelcontextprotocol.io/) server in [`mcp/`](./mcp/) exposes these cheat sheets to
+Claude Desktop / IDE extensions as searchable tools (`search_cheatsheets`, `get_cheatsheet`,
+`get_section`, `list_sections`) with frontmatter filters (section, platform, tag, MITRE id). Ask
+your assistant "how do I detect kerberoasting" and it pulls the right sheet directly. See
+[`mcp/README.md`](./mcp/README.md).
+
 ## 🤝 Contributing
 
 See [CONTRIBUTING.md](./CONTRIBUTING.md). In short: copy the template, fill it in, open a PR. Markdown lint runs automatically in CI.
