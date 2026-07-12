@@ -10,5 +10,7 @@ Open-source intelligence: infrastructure, people, breaches.
 - [people-osint](./people-osint.md) — person/username/email OSINT
 - [shodan-dorks](./shodan-dorks.md) — Shodan/Censys/FOFA search operators
 - [social-media-osint](./social-media-osint.md) — social profiles for recon & pretexting
+- [geolocation](./geolocation.md) — image/IP geolocation (GEOINT)
+- [corporate-osint](./corporate-osint.md) — org profiling & attack-surface mapping
 
-Planned: `geolocation.md`, `corporate-osint.md`.
+Planned: `dark-web-monitoring.md`, `image-video-osint.md`.

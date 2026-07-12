@@ -12,5 +12,8 @@ Ciphers, hashes, PKI and password cracking (in the context of authorized testing
 - [encoding-vs-encryption](./encoding-vs-encryption.md) — encoding vs encryption vs hashing
 - [symmetric-vs-asymmetric](./symmetric-vs-asymmetric.md) — key models, hybrid encryption
 - [key-management](./key-management.md) — key lifecycle, KMS/HSM, envelope encryption
+- [symmetric-vs-asymmetric](./symmetric-vs-asymmetric.md) — key models & hybrid encryption
+- [post-quantum](./post-quantum.md) — PQC, NIST algorithms, harvest-now-decrypt-later
+- [secrets-vs-keys](./secrets-vs-keys.md) — keys vs secrets, where each belongs
 
-Planned: `post-quantum.md`, `secrets-vs-keys.md`.
+Planned: `digital-signatures.md`, `random-number-generation.md`.

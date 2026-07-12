@@ -12,5 +12,7 @@ Protocols, traffic analysis, pivoting and tunneling.
 - [common-protocols](./common-protocols.md) — protocol/port security reference
 - [vpn-ipsec](./vpn-ipsec.md) — VPNs, IPsec/IKEv2, WireGuard, secure config
 - [802.1x-nac](./802.1x-nac.md) — port-based access control & NAC
+- [firewall-fundamentals](./firewall-fundamentals.md) — firewall types, default-deny, egress filtering
+- [network-segmentation](./network-segmentation.md) — zones, micro-segmentation, blast radius
 
-Planned: `firewall-fundamentals.md`, `network-segmentation.md`.
+Planned: `zero-trust-networking.md`, `ids-ips.md`.
