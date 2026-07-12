@@ -8,5 +8,7 @@ Protocols, traffic analysis, pivoting and tunneling.
 - [tcpdump](./tcpdump.md) — CLI packet capture & BPF filters
 - [wireshark-filters](./wireshark-filters.md) — display filters & analysis workflows
 - [proxychains-pivoting](./proxychains-pivoting.md) — pivoting through SOCKS with proxychains
+- [dns](./dns.md) — DNS fundamentals for security
+- [common-protocols](./common-protocols.md) — protocol/port security reference
 
-Planned: `dns.md`, `common-protocols.md`.
+Planned: `vpn-ipsec.md`, `802.1x-nac.md`.
