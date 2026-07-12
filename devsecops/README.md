@@ -22,4 +22,5 @@ Security embedded into the pipeline and infrastructure — "shift left".
 - [x] `ci-cd/gitlab-ci-hardening.md`, `kubernetes/network-policies.md`, `containers/falco-runtime.md`
 - [x] `secrets-management/vault-patterns.md`, `iac/opa-conftest.md`, `supply-chain/dependency-confusion.md`
 - [x] `containers/image-scanning-deep.md`, `kubernetes/rbac-deep.md`, `ci-cd/artifact-signing-flow.md`
-- [ ] Todo: `kubernetes/pod-security-standards`, `secrets-management/external-secrets-operator`, `sast-dast-sca/semgrep-rules`
+- [x] `kubernetes/pod-security-standards.md`, `secrets-management/external-secrets-operator.md`, `sast-dast-sca/semgrep-rules.md`
+- [ ] Todo: `ci-cd/dependency-pinning`, `containers/rootless-buildkit`, `iac/terraform-security`
