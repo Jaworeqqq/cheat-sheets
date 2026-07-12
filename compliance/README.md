@@ -15,4 +15,5 @@ Frameworks, controls, audit and risk management.
 - [x] `risk-management/risk-assessment.md`
 - [x] `frameworks/soc2.md`, `frameworks/dora-nis2.md`, `policies/policy-templates.md`
 - [x] `frameworks/hipaa.md`, `audit/soc2-vs-iso-crosswalk.md`, `risk-management/vendor-risk.md`
-- [ ] Todo: `frameworks/pci-saq-types`, `audit/internal-audit-program`, `policies/data-retention`
+- [x] `frameworks/pci-saq-types.md`, `audit/internal-audit-program.md`, `policies/data-retention.md`
+- [ ] Todo: `frameworks/cis-controls`, `risk-management/bcp-dr`, `policies/incident-response-policy`
