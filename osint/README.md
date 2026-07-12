@@ -9,5 +9,6 @@ Open-source intelligence: infrastructure, people, breaches.
 - [breach-data](./breach-data.md) — credential exposure & breach datasets
 - [people-osint](./people-osint.md) — person/username/email OSINT
 - [shodan-dorks](./shodan-dorks.md) — Shodan/Censys/FOFA search operators
+- [social-media-osint](./social-media-osint.md) — social profiles for recon & pretexting
 
-Planned: `social-media-osint.md`, `geolocation.md`.
+Planned: `geolocation.md`, `corporate-osint.md`.

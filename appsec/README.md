@@ -15,4 +15,5 @@ Application security from design to testing.
 - [x] `threat-modeling/` – stride, attack-trees
 - [x] `secure-coding/` – input-validation, deserialization, ssrf-prevention, csrf-defense
 - [x] `api-security/graphql-security.md`, `owasp-top10/asvs-overview.md`
-- [ ] Todo: `secure-coding/secure-headers`, `api-security/rate-limiting`, `owasp-top10/mass-assignment`
+- [x] `secure-coding/secure-headers.md`, `api-security/rate-limiting.md`, `owasp-top10/mass-assignment.md`
+- [ ] Todo: `secure-coding/cors`, `api-security/webhooks-security`, `threat-modeling/pasta`

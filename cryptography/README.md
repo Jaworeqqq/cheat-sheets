@@ -10,5 +10,7 @@ Ciphers, hashes, PKI and password cracking (in the context of authorized testing
 - [jwt-crypto](./jwt-crypto.md) — JWS vs JWE, algorithm families, key management
 - [tls-config](./tls-config.md) — secure TLS configuration & testing
 - [encoding-vs-encryption](./encoding-vs-encryption.md) — encoding vs encryption vs hashing
+- [symmetric-vs-asymmetric](./symmetric-vs-asymmetric.md) — key models, hybrid encryption
+- [key-management](./key-management.md) — key lifecycle, KMS/HSM, envelope encryption
 
-Planned: `symmetric-vs-asymmetric.md`, `key-management.md`.
+Planned: `post-quantum.md`, `secrets-vs-keys.md`.

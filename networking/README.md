@@ -10,5 +10,7 @@ Protocols, traffic analysis, pivoting and tunneling.
 - [proxychains-pivoting](./proxychains-pivoting.md) — pivoting through SOCKS with proxychains
 - [dns](./dns.md) — DNS fundamentals for security
 - [common-protocols](./common-protocols.md) — protocol/port security reference
+- [vpn-ipsec](./vpn-ipsec.md) — VPNs, IPsec/IKEv2, WireGuard, secure config
+- [802.1x-nac](./802.1x-nac.md) — port-based access control & NAC
 
-Planned: `vpn-ipsec.md`, `802.1x-nac.md`.
+Planned: `firewall-fundamentals.md`, `network-segmentation.md`.
