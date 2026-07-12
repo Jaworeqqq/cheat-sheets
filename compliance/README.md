@@ -17,4 +17,5 @@ Frameworks, controls, audit and risk management.
 - [x] `frameworks/hipaa.md`, `audit/soc2-vs-iso-crosswalk.md`, `risk-management/vendor-risk.md`
 - [x] `frameworks/pci-saq-types.md`, `audit/internal-audit-program.md`, `policies/data-retention.md`
 - [x] `frameworks/cis-controls.md`, `risk-management/bcp-dr.md`, `policies/incident-response-policy.md`
-- [ ] Todo: `frameworks/nist-800-53`, `audit/control-testing`, `policies/acceptable-use`
+- [x] `frameworks/nist-800-53.md`, `audit/control-testing.md`, `policies/acceptable-use.md`
+- [ ] Todo: `frameworks/fedramp`, `risk-management/kri-metrics`, `audit/continuous-compliance`
