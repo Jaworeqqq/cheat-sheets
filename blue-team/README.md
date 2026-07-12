@@ -24,4 +24,5 @@ Detection, response and defense. Mapped by default to [MITRE ATT&CK](https://att
 - [x] `incident-response/` – ir-playbook-phishing, ir-playbook-bec
 - [x] `detection-engineering/detection-as-code.md`, `threat-hunting/lateral-movement-hunt.md`, `siem/elastic-eql.md`
 - [x] `malware-analysis/memory-forensics.md`, `hardening/macos.md`, `digital-forensics/linux-forensics.md`
-- [ ] Todo: `logging-monitoring/linux-auditd`, `threat-hunting/dns-anomaly-hunt`, `incident-response/cloud-ir-aws`
+- [x] `logging-monitoring/linux-auditd.md`, `threat-hunting/dns-anomaly-hunt.md`, `incident-response/cloud-ir-aws.md`
+- [ ] Todo: `detection-engineering/mitre-attack-mapping`, `siem/wazuh`, `threat-hunting/persistence-hunt`

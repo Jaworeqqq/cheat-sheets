@@ -29,4 +29,5 @@ Offensive techniques organized by the [Cyber Kill Chain](https://www.lockheedmar
 - [x] `recon/nmap-nse.md`, `wireless/bluetooth-ble.md`, `mobile/ios-basics.md`, `tools/` (impacket, mimikatz)
 - [x] `active-directory/dcsync.md`, `active-directory/delegation.md`, `web/ssti.md`, `recon/smb-enum.md`
 - [x] `web/xxe.md`, `web/command-injection.md`, `initial-access/exposed-services.md`, `persistence/golden-ticket.md`
-- [ ] Todo: `web/idor`, `active-directory/ntlm-relay`, `exploitation/deserialization-attacks`
+- [x] `web/idor.md`, `active-directory/ntlm-relay.md`, `exploitation/deserialization-attacks.md`
+- [ ] Todo: `active-directory/dpapi`, `web/graphql-attacks`, `lateral-movement/rdp-hijacking`
