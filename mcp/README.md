@@ -13,6 +13,7 @@ directly — no manual grep. Read-only, local, no secrets.
 | `get_cheatsheet(path)` | Full markdown of one sheet |
 | `get_section(path, heading)` | One section only (e.g. `Detection`, `Mitigation`) |
 | `list_sections()` | Sections and their sheet counts |
+| `refresh_index()` | Rebuild the index from disk after adding/editing sheets |
 
 ## Resources
 
@@ -57,6 +58,6 @@ Restart Claude Desktop; the `cheat-sheets` tools appear in the tool picker.
 
 ## Notes
 
-- The index is built once at startup from the `.md` frontmatter; restart the server after
-  adding new sheets (or extend `build_index()` with a refresh tool).
+- The index is built at startup from the `.md` frontmatter. After adding/editing sheets, call
+  the `refresh_index()` tool to rebuild it live — no server restart needed.
 - Path access is constrained to the repo root and `.md` files only.

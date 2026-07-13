@@ -222,6 +222,16 @@ def list_sections() -> str:
     return "\n".join(lines)
 
 
+@mcp.tool()
+def refresh_index() -> str:
+    """Rebuild the in-memory index from disk. Call after adding/editing cheat sheets
+    so search/get reflect the current files without restarting the server."""
+    global INDEX
+    before = len(INDEX)
+    INDEX = build_index()
+    return f"Index refreshed: {before} -> {len(INDEX)} cheat sheets."
+
+
 # ---------------------------------------------------------------------------
 # Resources
 # ---------------------------------------------------------------------------
