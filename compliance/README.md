@@ -18,4 +18,5 @@ Frameworks, controls, audit and risk management.
 - [x] `frameworks/pci-saq-types.md`, `audit/internal-audit-program.md`, `policies/data-retention.md`
 - [x] `frameworks/cis-controls.md`, `risk-management/bcp-dr.md`, `policies/incident-response-policy.md`
 - [x] `frameworks/nist-800-53.md`, `audit/control-testing.md`, `policies/acceptable-use.md`
-- [ ] Todo: `frameworks/fedramp`, `risk-management/kri-metrics`, `audit/continuous-compliance`
+- [x] `frameworks/fedramp.md`, `risk-management/kri-metrics.md`, `audit/continuous-compliance.md`
+- [ ] Todo: `frameworks/csa-ccm`, `risk-management/third-party-continuous`, `policies/change-management`

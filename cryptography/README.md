@@ -15,5 +15,7 @@ Ciphers, hashes, PKI and password cracking (in the context of authorized testing
 - [symmetric-vs-asymmetric](./symmetric-vs-asymmetric.md) — key models & hybrid encryption
 - [post-quantum](./post-quantum.md) — PQC, NIST algorithms, harvest-now-decrypt-later
 - [secrets-vs-keys](./secrets-vs-keys.md) — keys vs secrets, where each belongs
+- [digital-signatures](./digital-signatures.md) — integrity, authenticity, non-repudiation
+- [random-number-generation](./random-number-generation.md) — CSPRNG vs PRNG, entropy
 
-Planned: `digital-signatures.md`, `random-number-generation.md`.
+Planned: `hmac-macs.md`, `certificate-pinning.md`.

@@ -14,5 +14,7 @@ Protocols, traffic analysis, pivoting and tunneling.
 - [802.1x-nac](./802.1x-nac.md) — port-based access control & NAC
 - [firewall-fundamentals](./firewall-fundamentals.md) — firewall types, default-deny, egress filtering
 - [network-segmentation](./network-segmentation.md) — zones, micro-segmentation, blast radius
+- [zero-trust-networking](./zero-trust-networking.md) — never trust always verify, ZTNA vs VPN
+- [ids-ips](./ids-ips.md) — intrusion detection/prevention, Suricata/Snort/Zeek
 
-Planned: `zero-trust-networking.md`, `ids-ips.md`.
+Planned: `dhcp-dns-security.md`, `proxy-egress-control.md`.

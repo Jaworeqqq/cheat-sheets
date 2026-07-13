@@ -12,5 +12,7 @@ Open-source intelligence: infrastructure, people, breaches.
 - [social-media-osint](./social-media-osint.md) — social profiles for recon & pretexting
 - [geolocation](./geolocation.md) — image/IP geolocation (GEOINT)
 - [corporate-osint](./corporate-osint.md) — org profiling & attack-surface mapping
+- [dark-web-monitoring](./dark-web-monitoring.md) — leak/credential/actor monitoring
+- [image-video-osint](./image-video-osint.md) — reverse search, verification, geolocation
 
-Planned: `dark-web-monitoring.md`, `image-video-osint.md`.
+Planned: `wifi-wardriving.md`, `blockchain-osint.md`.
