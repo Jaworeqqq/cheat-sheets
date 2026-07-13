@@ -28,4 +28,5 @@ Detection, response and defense. Mapped by default to [MITRE ATT&CK](https://att
 - [x] `detection-engineering/mitre-attack-mapping.md`, `siem/wazuh.md`, `threat-hunting/persistence-hunt.md`
 - [x] `malware-analysis/sandboxing.md`, `incident-response/tabletop-exercises.md`, `digital-forensics/browser-forensics.md`
 - [x] `detection-engineering/velociraptor.md`, `hardening/network-device-hardening.md`, `threat-hunting/beaconing-detection.md`
-- [ ] Todo: `siem/log-sources-priority`, `incident-response/containment-strategies`, `malware-analysis/unpacking`
+- [x] `siem/log-sources-priority.md`, `incident-response/containment-strategies.md`, `malware-analysis/unpacking.md`
+- [ ] Todo: `detection-engineering/alert-triage`, `threat-hunting/credential-access-hunt`, `digital-forensics/timeline-analysis`
