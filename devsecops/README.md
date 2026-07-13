@@ -25,4 +25,5 @@ Security embedded into the pipeline and infrastructure — "shift left".
 - [x] `kubernetes/pod-security-standards.md`, `secrets-management/external-secrets-operator.md`, `sast-dast-sca/semgrep-rules.md`
 - [x] `ci-cd/dependency-pinning.md`, `containers/rootless-buildkit.md`, `iac/terraform-security.md`
 - [x] `kubernetes/service-mesh-security.md`, `ci-cd/environment-protection.md`, `supply-chain/slsa-levels.md`
-- [ ] Todo: `containers/ebpf-runtime`, `secrets-management/dynamic-secrets`, `iac/policy-testing`
+- [x] `containers/ebpf-runtime.md`, `secrets-management/dynamic-secrets.md`, `iac/policy-testing.md`
+- [ ] Todo: `ci-cd/pipeline-threat-model`, `kubernetes/admission-controllers`, `sast-dast-sca/reachability-analysis`

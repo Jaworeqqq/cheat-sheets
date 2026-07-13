@@ -18,4 +18,5 @@ Application security from design to testing.
 - [x] `secure-coding/secure-headers.md`, `api-security/rate-limiting.md`, `owasp-top10/mass-assignment.md`
 - [x] `secure-coding/cors.md`, `api-security/webhooks-security.md`, `threat-modeling/pasta.md`
 - [x] `secure-coding/race-conditions.md`, `api-security/grpc-security.md`, `owasp-top10/asvs-verification.md`
-- [ ] Todo: `secure-coding/file-upload-defense`, `api-security/api-gateway-patterns`, `threat-modeling/dread`
+- [x] `secure-coding/file-upload-defense.md`, `api-security/api-gateway-patterns.md`, `threat-modeling/dread.md`
+- [ ] Todo: `secure-coding/logging-practices`, `api-security/websocket-security`, `owasp-top10/ssti-defense`
