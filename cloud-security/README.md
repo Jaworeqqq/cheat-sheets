@@ -20,4 +20,5 @@ Public cloud security — enumeration, misconfigurations, IAM, detection.
 - [x] `aws/kms-encryption.md`, `azure/defender-for-cloud.md`, `multi-cloud/terraform-cloud-guardrails.md`
 - [x] `aws/guardduty-tuning.md`, `gcp/scc-deep.md`, `azure/pim.md`
 - [x] `aws/organizations-scp-patterns.md`, `gcp/workload-identity-federation.md`, `multi-cloud/cloud-detection-strategy.md`
-- [ ] Todo: `aws/security-hub`, `azure/sentinel-onboarding`, `gcp/org-policy-catalog`
+- [x] `aws/security-hub.md`, `azure/sentinel-onboarding.md`, `gcp/org-policy-catalog.md`
+- [ ] Todo: `aws/inspector-vuln`, `azure/key-vault-hardening`, `multi-cloud/cloud-incident-response`
