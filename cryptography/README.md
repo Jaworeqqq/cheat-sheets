@@ -17,5 +17,7 @@ Ciphers, hashes, PKI and password cracking (in the context of authorized testing
 - [secrets-vs-keys](./secrets-vs-keys.md) — keys vs secrets, where each belongs
 - [digital-signatures](./digital-signatures.md) — integrity, authenticity, non-repudiation
 - [random-number-generation](./random-number-generation.md) — CSPRNG vs PRNG, entropy
+- [hmac-macs](./hmac-macs.md) — message authentication codes, AEAD, constant-time compare
+- [certificate-pinning](./certificate-pinning.md) — pinning keys, backup pins, trade-offs
 
-Planned: `hmac-macs.md`, `certificate-pinning.md`.
+Planned: `password-hashing.md`, `homomorphic-basics.md`.

@@ -19,4 +19,5 @@ Frameworks, controls, audit and risk management.
 - [x] `frameworks/cis-controls.md`, `risk-management/bcp-dr.md`, `policies/incident-response-policy.md`
 - [x] `frameworks/nist-800-53.md`, `audit/control-testing.md`, `policies/acceptable-use.md`
 - [x] `frameworks/fedramp.md`, `risk-management/kri-metrics.md`, `audit/continuous-compliance.md`
-- [ ] Todo: `frameworks/csa-ccm`, `risk-management/third-party-continuous`, `policies/change-management`
+- [x] `frameworks/csa-ccm.md`, `risk-management/third-party-continuous.md`, `policies/change-management.md`
+- [ ] Todo: `frameworks/iso-27017-27018`, `audit/gap-assessment`, `policies/data-classification`

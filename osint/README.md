@@ -14,5 +14,7 @@ Open-source intelligence: infrastructure, people, breaches.
 - [corporate-osint](./corporate-osint.md) — org profiling & attack-surface mapping
 - [dark-web-monitoring](./dark-web-monitoring.md) — leak/credential/actor monitoring
 - [image-video-osint](./image-video-osint.md) — reverse search, verification, geolocation
+- [wifi-wardriving](./wifi-wardriving.md) — wireless mapping & BSSID geolocation
+- [blockchain-osint](./blockchain-osint.md) — tracing crypto funds & address clustering
 
-Planned: `wifi-wardriving.md`, `blockchain-osint.md`.
+Planned: `username-enumeration.md`, `email-header-analysis.md`.

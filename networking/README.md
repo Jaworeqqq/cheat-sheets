@@ -16,5 +16,7 @@ Protocols, traffic analysis, pivoting and tunneling.
 - [network-segmentation](./network-segmentation.md) — zones, micro-segmentation, blast radius
 - [zero-trust-networking](./zero-trust-networking.md) — never trust always verify, ZTNA vs VPN
 - [ids-ips](./ids-ips.md) — intrusion detection/prevention, Suricata/Snort/Zeek
+- [dhcp-dns-security](./dhcp-dns-security.md) — rogue DHCP, DNS spoofing, snooping/DAI/DNSSEC
+- [proxy-egress-control](./proxy-egress-control.md) — default-deny egress, forward proxy, exfil defense
 
-Planned: `dhcp-dns-security.md`, `proxy-egress-control.md`.
+Planned: `arp-layer2-attacks.md`, `bgp-security.md`.
